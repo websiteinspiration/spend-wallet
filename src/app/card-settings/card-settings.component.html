@@ -1,0 +1,528 @@
+<app-upper-menu></app-upper-menu>
+<div class="container pt-5 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <div class="h1 text-white">Card Settings</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 pt-5 settings-menu font-weight-bold">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a #item1 class="list-group-item active" (click)="onCardList(item1.id)" id="list-activate-card-list"
+          data-toggle="list" href="#list-activate-card" role="tab" aria-controls="activate-card">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-activate-card-list'" class="img-fluid" src="/assets/images/card-settings/item1-blue.png">
+              <img *ngIf="selectedOption !== 'list-activate-card-list'" class="img-fluid" src="/assets/images/card-settings/item1-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Activate Card</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption === 'list-activate-card-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+              <img *ngIf="selectedOption !== 'list-activate-card-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+            </div>
+          </div>
+        </a>
+        <a #item2 class="list-group-item" (click)="onCardList(item2.id)" id="list-issue-virtual-card-list" data-toggle="list" href="#list-issue-virtual-card" role="tab" aria-controls="issue-virtual-card">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-issue-virtual-card-list'" class="img-fluid" src="/assets/images/card-settings/item2-blue.png">
+              <img *ngIf="selectedOption !== 'list-issue-virtual-card-list'" class="img-fluid" src="/assets/images/card-settings/item2-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Issue Virtual Card</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-issue-virtual-card-list'" class="img-fluid arrow"
+                src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-issue-virtual-card-list'" class="img-fluid arrow"
+                src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item3 class="list-group-item" (click)="onCardList(item3.id)" id="list-order-card-list" data-toggle="list"
+          href="#list-order-card" role="tab" aria-controls="order-card">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-order-card-list'" class="img-fluid" src="/assets/images/card-settings/item3-blue.png">
+              <img *ngIf="selectedOption !== 'list-order-card-list'" class="img-fluid" src="/assets/images/card-settings/item3-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Order Card</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-order-card-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-order-card-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item4 class="list-group-item disabled" (click)="onCardList(item4.id)" id="list-track-card-list" data-toggle="list"
+          href="#list-track-card" role="tab" aria-controls="track-card">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-track-card-list'" class="img-fluid" src="/assets/images/card-settings/item4-blue.png">
+              <img *ngIf="selectedOption !== 'list-track-card-list'" class="img-fluid" src="/assets/images/card-settings/item4-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Track Card Delivery</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-track-card-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-track-card-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item5 class="list-group-item disabled" (click)="onCardList(item5.id)" id="list-manage-limits-list"
+          data-toggle="list" href="#list-manage-limits" role="tab" aria-controls="manage-limits">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-manage-limits-list'" class="img-fluid" src="/assets/images/card-settings/item5-blue.png">
+              <img *ngIf="selectedOption !== 'list-manage-limits-list'" class="img-fluid" src="/assets/images/card-settings/item5-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Manage Limits</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-manage-limits-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-manage-limits-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item6 class="list-group-item" (click)="onCardList(item6.id)" id="list-card-activity-list" data-toggle="list"
+          href="#list-card-activity" role="tab" aria-controls="card-activity">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-card-activity-list'" class="img-fluid" src="/assets/images/card-settings/item6-blue.png">
+              <img *ngIf="selectedOption !== 'list-card-activity-list'" class="img-fluid" src="/assets/images/card-settings/item6-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>See Recent Card Activity</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-card-activity-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-card-activity-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item7 class="list-group-item disabled" (click)="onCardList(item7.id)" id="list-report-fraud-list"
+          data-toggle="list" href="#list-report-fraud" role="tab" aria-controls="report-fraud">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-report-fraud-list'" class="img-fluid" src="/assets/images/card-settings/item7-blue.png">
+              <img *ngIf="selectedOption !== 'list-report-fraud-list'" class="img-fluid" src="/assets/images/card-settings/item7-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Report Fraud</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-report-fraud-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-report-fraud-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item8 class="list-group-item" (click)="onCardList(item8.id)" id="list-lock-card-list" data-toggle="list"
+          href="#list-lock-card" role="tab" aria-controls="lock-card">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-lock-card-list'" class="img-fluid" src="/assets/images/card-settings/item8-blue.png">
+              <img *ngIf="selectedOption !== 'list-lock-card-list'" class="img-fluid" src="/assets/images/card-settings/item8-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Lock/Unlock Card</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-lock-card-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-lock-card-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+        <a #item9 class="list-group-item" (click)="onCardList(item9.id)" id="list-change-pin-list" data-toggle="list"
+          href="#list-change-pin" role="tab" aria-controls="change-pin">
+          <div class="row">
+            <div class="col-3 col-lg-2 img-wrapper">
+              <img *ngIf="selectedOption === 'list-change-pin-list'" class="img-fluid" src="/assets/images/card-settings/item9-blue.png">
+              <img *ngIf="selectedOption !== 'list-change-pin-list'" class="img-fluid" src="/assets/images/card-settings/item9-white.png">
+            </div>
+            <div class="col-6 col-lg-8 pl-0 pt-1">
+              <p>Change Pin</p>
+            </div>
+            <div class="col-3 col-lg-2 pt-1 text-right arrow-wrapper">
+              <img *ngIf="selectedOption !== 'list-change-pin-list'" class="img-fluid arrow" src="/assets/images/arrow.png">
+              <img *ngIf="selectedOption === 'list-change-pin-list'" class="img-fluid arrow" src="/assets/images/arrow-blue.png">
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-7 pt-5">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-activate-card" role="tabpanel" aria-labelledby="list-activate-card-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Activate Card</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="onActivateCard(activateCardForm)" #activateCardForm="ngForm">
+                  <div class="form-group">
+                    <label for="reference">Enter PAN #</label>
+                    <div class="position-relative">
+                      <input id="reference" type="reference" name="reference" mask="999-999-999" placeholder="123-123-123"
+                        [(ngModel)]="activateCard.reference" class="form-control pr-4" #reference="ngModel" required>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="reference.invalid || (reference.pristine && !activateCardForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="reference.valid || (reference.pristine && !activateCardForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cvv">Enter your CVV # (Last 3 digits on the back of your card)</label>
+                    <div class="position-relative">
+                      <input id="cvv" type="text" name="cvv" mask="999" placeholder="123" [(ngModel)]="activateCard.cvv"
+                        class="form-control pr-4" #cvv="ngModel" required>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="cvv.invalid || (cvv.pristine && !activateCardForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="cvv.valid || (cvv.pristine && !activateCardForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="expiryDate">Enter Expiration Date</label>
+                    <div class="position-relative">
+                      <input id="expiryDate" type="text" name="expiryDate" mask="99/99" placeholder="MM/YY"
+                        [(ngModel)]="activateCard.expiryDate" class="form-control pr-4" #expiryDate="ngModel" required>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="expiryDate.invalid || (expiryDate.pristine && !activateCardForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="expiryDate.valid || (expiryDate.pristine && !activateCardForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary" [disabled]="!activateCardForm.form.valid">Activate</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-issue-virtual-card" role="tabpanel" aria-labelledby="list-issue-virtual-card-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Issue Virtual Card</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="col-12">
+                  Memo: Spend Virtual Cards are $10 each with a 10 SPND activation free
+                </div>
+                <div class="col-12 text-right">
+                  <button type="submit" class="btn btn-primary" (click)="onIssueCard()">Proceed</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-order-card" role="tabpanel" aria-labelledby="list-track-card-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Order Card</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="col-12">
+                  Lorem Ipsum dolor lrpe ubrie alewk buio palkk akakkm ipos gyu akrew
+                </div>
+                <div class="col-12 text-right">
+                  <button type="submit" class="btn btn-primary" (click)="onOrderCard()">Order Card</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-track-card" role="tabpanel" aria-labelledby="list-track-card-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Track Order Delivery</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 text-left">Shipping Tracker</div>
+                </div>
+                <div class="row pt-5">
+                  <div class="col-12">
+                    <div class="stepper-container vertical">
+                      <div class="stepper">
+                        <div class="step active">
+                          <div class="step-inner">
+                            <div class="step-circle"><span></span></div>
+                          </div>
+                          <div class="step-content">
+                            <div>
+                              Delivered
+                            </div>
+                            <div class="text-muted">
+                              June 25, 2018
+                            </div>
+                          </div>
+                        </div>
+                        <div class="step active">
+                          <div class="step-inner">
+                            <div class="step-circle"><span></span></div>
+                          </div>
+                          <div class="step-content">
+                            <div>
+                              Shipped
+                            </div>
+                            <div class="text-muted">
+                              June 25, 2018
+                            </div>
+                          </div>
+                        </div>
+                        <div class="step">
+                          <div class="step-inner">
+                            <div class="step-circle"><span></span></div>
+                          </div>
+                          <div class="step-content">
+                            <div>
+                              Confirmed
+                            </div>
+                            <div class="text-muted">
+                              June 25, 2018
+                            </div>
+                          </div>
+                        </div>
+                        <div class="step">
+                          <div class="step-inner">
+                            <div class="step-circle"><span></span></div>
+                          </div>
+                          <div class="step-content">
+                            <div>
+                              Ordered
+                            </div>
+                            <div class="text-muted">
+                              June 25, 2018
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-manage-limits" role="tabpanel" aria-labelledby="list-manage-limits-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Manage Limits</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="onManageLimit(manageLimitForm)" #manageLimitForm="ngForm">
+                  <div class="form-group">
+                    <label for="cardNumber">Choose Card</label>
+                    <input id="cardNumber" type="number" name="cardNumber" [(ngModel)]="manageLimit.cardNumber" class="form-control"
+                      #cardNumber="ngModel" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="cardLimit">Set a limit</label>
+                    <input id="cardLimit" type="text" name="cardLimit" [(ngModel)]="manageLimit.cardLimit" class="form-control"
+                      #cardLimit="ngModel" required>
+                  </div>
+                  <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">Accept</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-card-activity" role="tabpanel" aria-labelledby="list-card-activity-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Recent Card Activity</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <perfect-scrollbar style="max-height: 28rem;">
+                    <div class="col-12">
+                      <div class="list-group">
+                        <a *ngFor="let transaction of transactions" class="list-group-item list-group-item-action pl-0 pr-0">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="row">
+                                <div class="col-3 pr-0">
+                                  <img class="img-fluid rounded-circle w-50" src="/assets/images/layer-1.png">
+                                </div>
+                                <div class="col-9 pl-0 font-weight-bold">{{transaction.title}}</div>
+                              </div>
+                            </div>
+                            <div class="col-6 text-right text-muted">{{transaction.dateTime}}</div>
+                          </div>
+                          <div class="row pt-1">
+                            <div class="col-6 text-left text-muted text-capitalize">{{transaction.status}}</div>
+                            <div class="col-6 text-right font-weight-bold">{{transaction.usdAmountAtTransactionFormatted}}</div>
+                          </div>
+                        </a>
+                        <a *ngIf="!transactions">
+                          <div class="row">
+                            <div class="col col-12 text-center">No activities Found</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-report-fraud" role="tabpanel" aria-labelledby="list-report-fraud-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-8 h4">Report Fraud</div>
+                  <div class="col-2 h4 font-weight-bold text-dark text-right">Back</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="onFraudReport(fraudReportForm)" #fraudReportForm>
+                  <div class="form-group rounded border border-primary p-3">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="row">
+                          <div class="col-3 pr-0 mt-0">
+                            <img class="img-fluid rounded-circle w-50" src="/assets/images/layer-1.png">
+                          </div>
+                          <div class="col-9 pl-0 mt-0 font-weight-bold">Starbucks</div>
+                        </div>
+                      </div>
+                      <div class="col-6 text-right text-muted">13 Apr 2017 10:13 AM</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6 text-left text-muted">Pending</div>
+                      <div class="col-6 text-right font-weight-bold">$94.2</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="fraudDetails">Details</label>
+                    <input type="text" id="fraudDetails" name="fraudDetails" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="fraudMessage">Enter Your Message</label>
+                    <textarea type="textarea" id="fraudMessage" name="fraudMessage" class="form-control"></textarea>
+                  </div>
+                  <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">Accept</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-lock-card" role="tabpanel" aria-labelledby="list-lock-card-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Lock Unlock Card</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-6 text-left">San #</div>
+                  <div class="col-6 text-right">Status</div>
+                </div>
+                <div class="row">
+                  <perfect-scrollbar style="max-height: 28rem;">
+                    <div class="col-12">
+                      <div class="list-group">
+                        <a *ngFor="let card of cards" (click)="onChangeStatus(card)" class="list-group-item list-group-item-action pl-0 pr-0">
+                          <div class="row">
+                            <div class="col-6 text-left">{{card.reference}}</div>
+                            <div class="col-6 text-right" [style.color]="card.locked ? 'rgba(27, 27, 27, 0.5)' : '#06e87b'">{{card.locked
+                              ? 'Inactive' : 'Active'}}</div>
+                          </div>
+                        </a>
+                        <a *ngIf="!cards">
+                          <div class="row">
+                            <div class="col col-12 text-center">No Cards Found</div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="list-change-pin" role="tabpanel" aria-labelledby="list-change-pin-list">
+          <div class="container">
+            <div class="card">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-10 h4">Change Pin</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <form (ngSubmit)="onChangePin(changePinForm)" #changePinForm="ngForm">
+                  <div class="form-group">
+                    <label for="cpReference">Choose a Card based on PAN #</label>
+                    <div class="position-relative">
+                      <input id="cpReference" type="text" name="cpReference" mask="999-999-999" placeholder="999-999-999"
+                        [(ngModel)]="changePin.cpReference" class="form-control pr-4" #cpReference="ngModel" required>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="cpReference.invalid || (cpReference.pristine && !changePinForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="cpReference.valid || (cpReference.pristine && !changePinForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="currentPin">Current Pin</label>
+                    <div class="position-relative">
+                      <input id="currentPin" type="password" name="currentPin" [(ngModel)]="changePin.currentPin" class="form-control pr-4"
+                        #currentPin="ngModel" disabled>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="currentPin.invalid || (currentPin.pristine && !changePinForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="currentPin.valid || (currentPin.pristine && !changePinForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="newPin">Change Pin</label>
+                    <div class="position-relative">
+                      <input id="newPin" type="password" name="newPin" [(ngModel)]="changePin.newPin" class="form-control pr-4"
+                        #newPin="ngModel" disabled>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="newPin.invalid || (newPin.pristine && !changePinForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="newPin.valid || (newPin.pristine && !changePinForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmNewPin">Confirm Change Pin</label>
+                    <div class="position-relative">
+                      <input id="confirmNewPin" type="password" name="confirmNewPin" [(ngModel)]="changePin.confirmNewPin"
+                        class="form-control pr-4" #confirmNewPin="ngModel" disabled>
+                      <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="confirmNewPin.invalid || (confirmNewPin.pristine && !changePinForm.submitted)"></span>
+                      <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="confirmNewPin.valid || (confirmNewPin.pristine && !changePinForm.submitted)"></span>
+                    </div>
+                  </div>
+                  <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary" [disabled]="!changePinForm.form.valid">Accept</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

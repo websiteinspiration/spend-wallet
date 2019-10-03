@@ -1,0 +1,154 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+  <div *ngIf="toggle !== undefined" class="menu" [class.toggle]="toggle">
+    <img class="img-responsive" style="cursor: pointer;" [src]="'assets/images/menu'+ (toggle ? '': '-b')+ '.png'"
+      (click)="toggleMenu()">
+  </div>
+  <a class="navbar-brand" routerLink="/">
+    <img src="assets/images/logo/spend-logo-ko@3x.png" [style.width]="'9rem'" alt="spend-logo" />
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="row navbar-nav ml-auto">
+      <li class="col-auto pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/portfolio']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-bottom'" src="/assets/images/navbar-icons/portfolio.png"></span>
+          <span class="nav-text">Portfolio</span>
+        </a>
+      </li>
+      <li class="col-auto pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/wallet']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-bottom'" src="/assets/images/navbar-icons/wallet.png"></span>
+          <span class="nav-text">Wallet</span>
+        </a>
+      </li>
+      <li class="col-auto pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/card']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-bottom'" src="/assets/images/navbar-icons/card.png"></span>
+          <span class="nav-text">Card</span>
+        </a>
+      </li>
+      <li class="col-auto pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/exchange']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/exchange.png"></span>
+          <span class="nav-text">Exchange</span>
+        </a>
+      </li>
+      <li class="col-auto pl-0 nav-item">
+        <a class="nav-link pointer-cursor" [routerLink]="['/buy-sell']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/buysell.png"></span>
+          <span class="nav-text">Buy/Sell</span>
+        </a>
+      </li>
+      <li class="col-auto pl-0 nav-item">
+        <a class="nav-link pointer-cursor" [routerLink]="['/loan']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/loan.png"></span>
+          <span class="nav-text">Loan</span>
+        </a>
+      </li>
+
+      <li class="col-auto account-menu normal pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/profile']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/setting.png"></span>
+          <span class="nav-text">Settings</span>
+        </a>
+      </li>
+      <li class="col-auto account-menu normal pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/card/settings']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/card_setting.png"></span>
+          <span class="nav-text">Card Settings</span>
+        </a>
+      </li>
+      <li class="col-auto account-menu normal pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/banking']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/banking.png"></span>
+          <span class="nav-text">Banking</span>
+        </a>
+      </li>
+      <li class="col-auto account-menu normal pl-0 nav-item">
+        <a class="nav-link" [routerLink]="['/mydocs']" [routerLinkActive]="['active']">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/doc.png"></span>
+          <span class="nav-text">My Docs</span>
+        </a>
+      </li>
+      <li class="col-auto account-menu normal pl-0 nav-item">
+        <a class="nav-link" href=" https://help.spend.com" target="_blank">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/support.png"></span>
+          <span class="nav-text">Support</span>
+        </a>
+      </li>
+      <li class="col-auto account-menu normal pl-0 nav-item">
+        <a class="nav-link" [style.cursor]="'pointer'" (click)="logout()">
+          <span class="nav-icon"><img [style.vertical-align]="'text-top'" src="/assets/images/navbar-icons/signout.png"></span>
+          <span class="nav-text">Sign Out</span>
+        </a>
+      </li>
+      <li class="col-auto account-menu dropdown pl-0 nav-item">
+        <div class="row no-gutters">
+          <div class="col-auto pr-1">
+            <img [src]="user.avatar || '/assets/images/user-icon.jpg'" alt="user-img" [style.width]="'2.5rem'"
+              [style.height]="'2.5rem'" class="border border-primary rounded-circle">
+          </div>
+          <div class="col-auto pt-1 dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{user.username}} <i class="fas fa-chevron-down text-primary"></i>
+            </a>
+            <div class="dropdown-menu text-small text-body" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" [routerLink]="['/profile']">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/setting.png"></div>
+                  <div class="col-10 text-center pt-1">Settings</div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/reports']">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/report.png"></div>
+                  <div class="col-10 text-center pt-1">Reports</div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/card/settings']">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/card_setting.png"></div>
+                  <div class="col-10 text-center pt-1">Card Settings</div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/banking']">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/banking.png"></div>
+                  <div class="col-10 text-center pt-1">Banking</div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/mydocs']">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/doc.png"></div>
+                  <div class="col-10 text-center pt-1">My Docs</div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href=" https://help.spend.com" target="_blank">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/support.png"></div>
+                  <div class="col-10 text-center pt-1">Support</div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [style.cursor]="'pointer'" (click)="logout()">
+                <div class="row no-gutters">
+                  <div class="col-2 text-center"><img class="img-fluid" src="/assets/images/navbar-icons/signout.png"></div>
+                  <div class="col-10 text-center pt-1">Sign Out</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

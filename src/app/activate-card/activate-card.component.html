@@ -1,0 +1,62 @@
+<div class="d-flex flex-column align-items-center justify-content-center" style="padding-top: 7%;">
+  <img src="assets/images/logo.png" class="bg-logo" height="100">
+  <div class="form-container mt-5">
+    <h3 class="text-center" style="font-family: Avenir-Bold;">{{getTitle()}}</h3>
+    <p class="text-center" style="font-size: 18px;color: #818181;">{{getDescription()}}</p>
+    <span *ngIf="step === 1" style="font-size: 12px;color: #818181;">TIP: DO NOT USE LAST 4 OF OUR SOCIAL<br>OR SEQUENTIAL NUMBERS LIKE 1234.</span>
+    <div class="form-group d-flex flex-column align-items-center">
+      <div class="code-fields my-4" *ngIf="step === 0">
+        <input type="text" mask="9" (keyup)="onCvvChange($event)" [(ngModel)]="cvv[0]">
+        <input type="text" mask="9" (keyup)="onCvvChange($event)" [(ngModel)]="cvv[1]">
+        <input type="text" mask="9" (keyup)="onCvvChange($event)" [(ngModel)]="cvv[2]">
+      </div>
+      <div class="code-fields my-4" *ngIf="step === 1">
+        <input type="text" mask="9" (keyup)="onPinChange($event)" [(ngModel)]="pin[0]">
+        <input type="text" mask="9" (keyup)="onPinChange($event)" [(ngModel)]="pin[1]">
+        <input type="text" mask="9" (keyup)="onPinChange($event)" [(ngModel)]="pin[2]">
+        <input type="text" mask="9" (keyup)="onPinChange($event)" [(ngModel)]="pin[3]">
+      </div>
+      <div class="code-fields my-4" *ngIf="step === 2">
+        <input type="text" mask="9" (keyup)="onConfirmPinChange($event)" [(ngModel)]="confirmPin[0]">
+        <input type="text" mask="9" (keyup)="onConfirmPinChange($event)" [(ngModel)]="confirmPin[1]">
+        <input type="text" mask="9" (keyup)="onConfirmPinChange($event)" [(ngModel)]="confirmPin[2]">
+        <input type="text" mask="9" (keyup)="onConfirmPinChange($event)" [(ngModel)]="confirmPin[3]">
+      </div>
+      <button class="btn btn-primary" [disabled]="!isValid()" (click)="submit($event)">
+        <span *ngIf="isSubmitted">
+          <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+        </span>
+        <span *ngIf="!isSubmitted">{{getBtnText()}}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="openDialog" class="dialog">
+  <div class="dialog-container">
+    <img src="assets/images/checkbox.png" width="60px">
+    <h1 style="font-family: Avenir-Bold;">Activated</h1>
+    <p style="font-size: 20px;color: #818181;" class="m-0">Your Spend Card has been activated</p>
+    <button class="btn btn-primary mt-4" (click)="setPin()">
+      Set PIN Now
+    </button>
+  </div>
+</div>
+
+<div *ngIf="openSecondDialog" class="dialog">
+  <div class="dialog-container">
+    <img src="assets/images/checkbox.png" width="60px">
+    <h1 style="font-family: Avenir-Bold;">PIN Set</h1>
+    <p style="font-size: 20px;color: #818181;" class="m-0">Your Spend Card PIN is now active and ready for use!</p>
+    <button class="btn btn-primary mt-4" (click)="close()">Ok</button>
+  </div>
+</div>
+
+<div *ngIf="openFailedDialog" class="dialog">
+  <div class="dialog-container">
+    <img src="assets/images/close.png" width="60px">
+    <h1 style="font-family: Avenir-Bold;">Failed</h1>
+    <p style="font-size: 20px;color: #818181;" class="m-0" *ngFor="let e of error">{{e.message}}</p>
+    <button class="btn btn-primary mt-4" (click)="close()">OK</button>
+  </div>
+</div>

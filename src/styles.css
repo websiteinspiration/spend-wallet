@@ -1,0 +1,525 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'intl-tel-input/build/css/intlTelInput.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir/Avenir-Bold.ttf');
+  font-weight: bolder;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir/AEH.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir/AvenirLTStd-Light.otf');
+  font-weight: light;
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url('/assets/fonts/Avenir/AvenirLTStd-Book.otf');
+}
+
+@font-face {
+  font-family: Avenir-Medium;
+  src: url('/assets/fonts/Avenir/AvenirLTStd-Book.otf');
+}
+
+@font-face {
+  font-family: Avenir-Bold;
+  src: url('/assets/fonts/Avenir/Avenir-Bold.ttf');
+}
+
+body, html {
+  font-family: Avenir, serif;
+  -ms-overflow-style: none; /*IE 10+*/
+  overflow: -moz-scrollbars-none; /*Firefox*/
+  background-color: #EAEAEA;
+}
+
+input,
+*:focus,
+textarea,
+select { 
+  outline: none;
+}
+
+body {
+  min-height: 100vh;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.loading-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1030;
+}
+
+.loading-background .fa-spin {
+  font-size: 40px;
+  color: #ffffff;
+}
+
+app-root,
+app-portfolio {
+  display: block;
+  height: 100%;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none; /* Safari and Chrome*/
+  width: 0px; /* remove scrollbar space */
+  background: transparent; /* optional: just make scrollbar invisible */
+  overflow: hidden;
+}
+
+.checkbox label,
+.radio label {
+  font-family: Avenir, serif;
+  font-weight: bold;
+  padding-left: 0px;
+}
+
+.checkbox label:after,
+.radio label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #0134a7;
+  border-radius: .25em;
+  width: 1.3em;
+  height: 1.3em;
+  float: left;
+  margin-right: .5em;
+}
+
+.radio .cr {
+  border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+  position: absolute;
+  font-size: .8em;
+  line-height: 0;
+  top: 50%;
+  left: 20%;
+}
+
+.radio .cr .cr-icon {
+  margin-left: 0.04em;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+  display: none;
+}
+
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+  transform: scale(3) rotateZ(-20deg);
+  opacity: 0;
+  transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+  opacity: .5;
+}
+
+body.register,
+body.login {
+  background: url(/assets/images/background.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-attachment: fixed;
+  background-position: bottom center;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px !important;
+}
+
+.intl-tel-input {
+  width: 100%;
+}
+
+.intl-tel-input.allow-dropdown .flag-container, .intl-tel-input.separate-dial-code .flag-container {
+  right: auto;
+  left: 4px;
+  height: 34px;
+  top: 14px;
+}
+
+.send-modal .modal-content {
+  margin-top: 70px;
+}
+
+.modal-backdrop {
+  opacity: .95 !important;
+  background-color: #1F2534;
+}
+
+.modal-dialog {
+  margin-top: 20vh;
+}
+
+.qr img {
+  width: 120px;
+  margin: 20px 10px;
+  border: 5px solid black;
+}
+
+button:focus {
+  outline: none;
+}
+
+.alert {
+  color: white
+}
+
+.alert .close {
+  top: -3px
+}
+
+.alert.alert-error {
+  background-color: rgba(211, 134, 134, .9);
+  border: 1px solid #7C171D;
+}
+
+.alert.alert-success {
+  background-color: rgba(131, 184, 147, .9);
+  border: 1px solid #7D9785;
+}
+
+.alert.alert-info {
+  background-color: rgba(130, 165, 233, .9);
+  border: 1px solid #7D89AC;
+}
+
+.modal-dialog {
+  max-width: 700px;
+}
+
+@media screen and (max-width: 767px) {
+
+  .modal-dialog {
+    width: 95%;
+    margin: 15vh auto;
+  }
+
+  .modal-body button.close {
+    top: -30px !important;
+    right: 15px !important;
+  }
+}
+
+.profile-page div.flag-container {
+  top: 2px !important;
+  background-color: #7C171D;
+}
+
+.btn-primary {
+  border: none;
+  box-shadow: 1px 7px 13px 1px rgba(1, 2, 2, 0.15);
+}
+
+.btn-primary.no-shadow {
+  box-shadow: none;
+}
+
+.btn-primary:not(:hover) {
+  background-color: #2e81e3;
+}
+
+.btn-primary:not(.btn-lg,.btn-xs) {
+  font-size: 18px;
+}
+
+.btn {
+  border-radius: 6px;
+  padding: 8px 15px;
+}
+
+.card {
+  border-radius: 6px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 24px 0 rgba(1, 2, 2, 0.26);
+  padding: 20px 30px;
+}
+
+.card .title {
+  font-size: 28px;
+  color: rgb(46, 129, 227);
+  line-height: 1.2;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.text-extra-small {
+  font-size: 12px;
+}
+
+.text-small {
+  font-size: 14px;
+}
+
+.text-medium {
+  font-size: 18px;
+}
+
+.text-large {
+  font-size: 24px;
+}
+
+.control-label {
+  font-size: 18px;
+}
+
+.card form div[class^="col-"] {
+  margin: 8px 0;
+}
+
+.input-group input {
+  border-right: none !important;
+}
+.swal-icon--success__ring {
+  border: 4px solid hsla(212, 76%, 54%, 0.2);
+}
+.swal-icon--success {
+  border-color: #2e81e3;
+}
+.swal-icon--success__line {
+  background-color: #2e81e3;
+}
+.swal-icon--success__ring {
+  border-color: #2e81e3;
+}
+.swal-icon--success__ring {
+  border-color: #2e81e3;
+}
+.swal-title {
+  text-transform: capitalize;
+  color: black;
+}
+.swal-text {
+  color: black;
+  text-align: center;
+}
+.swal-footer {
+  text-align: center;
+}
+.swal-button {
+  background-color: #2e81e3 !important;
+  font-weight: normal !important;
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+  border-radius: 27px !important;
+  padding: 8px 15px !important;
+  margin-bottom: 15px !important;
+  display: inline-block !important;
+  min-width: 120px !important;
+  box-shadow: 1px 7px 13px 1px rgba(1, 2, 2, 0.15) !important;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+  transition-property: color, background-color, border-color, box-shadow !important;
+  transition-duration: 0.15s, 0.15s, 0.15s, 0.15s !important;
+  transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out !important;
+  transition-delay: 0s, 0s, 0s, 0s !important;
+}
+.swal-button:hover {
+  background-color: #0069d9 !important;
+}
+.swal-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5) !important ;
+}
+
+/* Drop down arrow in ng-select */
+.ng-select .ng-arrow-wrapper {
+  display: none !important;
+}
+
+.country-drop-down .ng-select-container {
+  height: 42px !important;
+}
+
+@-webkit-keyframes scale-up-ver-bottom {
+  0% {
+    -webkit-transform: scaleY(0.4);
+    transform: scaleY(0.4);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+  }
+}
+
+@keyframes scale-up-ver-bottom {
+  0% {
+    -webkit-transform: scaleY(0.4);
+    transform: scaleY(0.4);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+  }
+}
+
+@-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.asset-icon {
+  width: 5.5rem;
+}
+.ps .ps__thumb-y {
+  background-color: #167bf7;
+}
+perfect-scrollbar > .ps.ps--scrolling-y > .ps__rail-y, perfect-scrollbar > .ps.ps--scrolling-x > .ps__rail-x{
+  background-color: transparent !important;
+}
+.input-icon {
+  cursor: pointer;
+  bottom: 15%;
+  right: 3%;
+}
+.icon-success {
+  color: blue;
+}
+.icon-error {
+  color: red;
+}
+.icon-pending {
+  color: #FCDE3A;
+}
+.tooltip-completed .tooltip-inner {
+  background-color: green;
+}
+
+.tooltip-completed .tooltip-arrow:before {
+  border-left-color: green;
+}
+
+.tooltip-pending .tooltip-inner {
+  background-color: yellow;
+}
+
+.tooltip-pending .tooltip-arrow:before {
+  border-left-color: yellow;
+}
+
+.tooltip-failed .tooltip-inner {
+  background-color: red;
+}
+
+.tooltip-failed .tooltip-arrow:before {
+  border-left-color: red;
+}
+.exchange-success {
+  color: #7aa651;
+}
+.exchange-error {
+  color: #981010;
+}
+
+.graph-tooltip {
+  display: none;
+  opacity: 1;
+  background: rgb(238, 238, 238);
+  box-shadow: rgb(153, 153, 153) 0px 0px 5px;
+  border-radius: 5px;
+  color: rgb(51, 51, 51);
+  width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+  width: -moz-max-content;    /* Firefox/Gecko */
+  width: -webkit-max-content; /* Chrome */
+  padding: 6px;
+  position: absolute;
+  text-align: center;
+  z-index: 10;
+  top: 63px;
+  left: 205px;
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+      max-width: 600px;
+  }
+}
+.font-weight-bolder {
+  font-weight: 900 !important;
+}
+
+.buy-sell-line {
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+}
+
+.buy-sell-point1 {
+  fill: white;
+}
+
+.carousel .slick-arrow:before {
+  color: #808080;
+}
+
+.left-container .ng-select-container {
+  border: 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.left-container .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+  border-color: #eeeeee;
+  box-shadow: none;
+}

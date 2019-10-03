@@ -1,0 +1,105 @@
+.header {
+  min-height: 50vh;
+  background-size: auto;
+  background-image: url('/assets/images/gs-background.png');
+  .market-data {
+    font-size: 1.2rem;
+  }
+  .symbol-title {
+    font-size: 2rem;
+  }
+  .symbol-price {
+    font-size: 3rem;
+  }
+}
+
+.symbol-list {
+  background-color: white;
+  margin: 0 -15px;
+  padding: 0 30px;
+}
+
+.symbol-item {
+  cursor: pointer;
+  color: #9e9e9e;
+  display: inline-block;
+  &:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .symbol-icon {
+    width: 2.5rem;
+  }
+  .symbol-title {
+    vertical-align: middle;
+  }
+}
+
+.text-light-blue {
+  color: #41d3ff;
+}
+
+.toggle-btn {
+  .btn-primary {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border: none;
+    outline: none;
+    color: #0062cc;
+    background-color: white;
+    &.active {
+      color: #fff;
+      background-color: #0062cc;
+    }
+    &.focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.selected {
+  color: #0134a7;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#card-icon {
+  position: absolute;
+  width: 2rem;
+  top: -1rem;
+  left: 48%;
+}
+
+.input-symbol {
+  top: 15px;
+  right: 23px;
+}
+
+.btn-primary {
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+   &:hover {
+    opacity: .5;
+  }
+   .fa {
+    color: #7e7d7d;
+  }
+}
+ .btn-arrow:disabled {
+  opacity: .5;
+}
+
+@media (max-width: 1024px) {
+  .symbol-title {
+    display: none;
+  }
+}

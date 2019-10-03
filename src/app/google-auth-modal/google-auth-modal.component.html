@@ -1,0 +1,84 @@
+<ng-template class="modal" #template>
+
+  <div class="row modal-body center">
+    <div class="bg-modal-phone" #body>
+      <div class="image-holder">
+        <div class="modalImg">
+          <img src="assets/images/qr-code.png">
+        </div>
+      </div>
+      <button type="button" class="send-modal close" aria-label="Send" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div [style.display]="step==1?'block':'none' " id="step1-modal-body">
+
+        <div>
+          <img src="assets/images/google_authenticator.png">
+          <p>You are Now Activating <br><b> Google Authenticator</b> for two-factor authentication.</p>
+          <button class="btn btn-primary mb-3 pl-3 pr-3 btn-primary mb-3 pl-3 pr-3" (click)="moveToConfirmStep()">
+            Next
+          </button>
+        </div>
+
+
+      </div>
+      <div [style.display]="step==2?'block':'none' " id="step2-modal-body">
+        <div>
+          <img [src]="qrcodePng" *ngIf="qrcodePng">
+          <p>
+            Once you have scanned the QR code, please press Next to continue
+          </p>
+          <button class="btn btn-primary mb-3 pl-3 pr-3" (click)="moveToCodeStep()">
+            Next
+          </button>
+        </div>
+
+
+      </div>
+
+      <div [style.display]="step==3?'block':'none' " id="step3-modal-body">
+
+        <div>
+
+          <p>
+            You can Now Activating<b>Google Authenticator </b>
+            for two-factor authentication.
+          </p>
+
+          <input
+            [textMask]="{mask:mask,guide:false}"
+            type="text" class="code2fa-txt"
+            [(ngModel)]="model.code2fa" required>
+
+          <button class="btn btn-primary mb-3 pl-3 pr-3" (click)="moveToEnd()">
+            <span *ngIf="isSubmitted">
+              <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+            </span>
+            <span *ngIf="!isSubmitted">Ok</span>
+          </button>
+        </div>
+      </div>
+
+
+      <div [style.display]="step==4?'block':'none' " id="step4-modal-body">
+
+        <div>
+
+          <div class="last-massage">
+            <i class="fa fa-check-circle"></i>
+            Code Accepted
+          </div>
+
+
+          <hr>
+
+          <button class="btn btn-primary mb-3 pl-3 pr-3" (click)="modalRef.hide()">
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+

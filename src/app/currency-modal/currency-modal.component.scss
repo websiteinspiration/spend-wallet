@@ -1,0 +1,87 @@
+.modal-body {
+  color: black
+}
+
+.exchange-modal.close {
+  top: 2px;
+  right: -36px;
+  position: absolute;
+}
+
+.divider {
+  height: 1px;
+  opacity: 0.45;
+  background-color: #c2c2c2;
+}
+
+.btn-modal {
+  min-width: 7rem;
+  &:hover:not(:disabled) {
+    opacity: 0.9 !important;
+  }
+}
+
+.payment-icon {
+  width: 5rem;
+  fill: #bfbfbf;
+  cursor: pointer;
+}
+
+.amount_box {
+  .card {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 20px;
+  }
+  #amount_row {
+    font-size: 2rem;
+    #amount {
+      border: none;
+      border-bottom: 1px solid black;
+      outline: none;
+      padding-left: 1.5rem;
+      padding-right: 5rem;
+    }
+    #symbol {
+      top: 5%;
+      left: 0%;
+    }
+    #abr {
+      top: 5%;
+      right: 0%;
+    }
+  }
+  width: 100%;
+  background-size: contain;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-image: url("/assets/images/bg-modal-send.png");
+}
+
+.bg-footer {
+  background-color: #363636;
+}
+
+.header-img {
+  width: 70px;
+  top: -35px;
+  position: absolute;
+}
+
+@media (max-width: 767.98px) {
+  .header-img {
+    right: 106px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .header-img {
+    right: 214px;
+  }
+}
+
+@media (min-width: 992px) {
+  .header-img {
+    right: 264px;
+  }
+}

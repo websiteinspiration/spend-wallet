@@ -1,0 +1,70 @@
+<ng-template class="modal" #template>
+  <div class="modal-body text-center rounded">
+    <div class="row">
+      <div class="col-12">
+        <img class="modal-img" src='/assets/images/exchange_Icon.png'>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 font-weight-bold text-medium">You are about to do exchange of</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-sm-5">
+        <div class="row no-gutters">
+          <div class="col-10 col-sm-12 text-extra-small text-uppercase text-muted text-right pr-2">exchanging</div>
+          <div class="col-10 col-sm-12 bg-white position-relative">
+            <div class="row mr-1">
+              <div class="col-12 font-weight-bold text-right exchange-quote-amount" [style.color]="quote.from_exchange.asset.color">
+                <span>{{exchangeAmount | number :'1.0-4' }} {{quote.from_exchange.asset.symbol}}</span>
+              </div>
+            </div>
+            <img class="position-absolute asset-icon-left" [src]="utilService.getColorIcon(exchangeSymbol)">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-2 mt-sm-4 mt-2">
+        <div class="position-relative exchange-icons">
+          <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.3 286.9">
+            <path [style.fill]="quote.to_exchange.asset.color" d="M155 135.1L155 135.1l-7.7 0h-7 -3.1c-0.2 0-0.3 0-0.5 0h-30.2v-32.9c0-3.8-2.3-7.3-5.9-8.8s-7.6-0.7-10.4 2.1l-84 84c-1.8 1.8-2.8 4.2-2.8 6.7s1 4.9 2.8 6.7l88.4 88.4c1.8 1.8 4.2 2.8 6.7 2.8 1.2 0 2.5-0.2 3.6-0.7 3.5-1.5 5.9-4.9 5.9-8.8V233h89.8c5.2 0 9.5-4.3 9.5-9.5s-4.3-9.5-9.5-9.5h-99.3c-5.2 0-9.5 4.3-9.5 9.5v28.2l-65.4-65.4 61.1-61.1v19.4c0 5.2 4.3 9.5 9.5 9.5h42.1 27.2 7.7l0 0L155 135.1z" />
+          </svg>
+          <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.33 286.9">
+            <path [style.fill]="quote.from_exchange.asset.color" d="M324,96.22,235.58,7.84a9.49,9.49,0,0,0-16.21,6.72V56.19H129.52a9.5,9.5,0,0,0,0,19h99.35a9.51,9.51,0,0,0,9.5-9.5V37.49l65.45,65.45L242.75,164V144.57a9.5,9.5,0,0,0-9.5-9.5H155l0,0,19,19,0,0h19.09c.16,0,.31,0,.47,0h30.21v32.87a9.5,9.5,0,0,0,5.86,8.78,9.64,9.64,0,0,0,3.64.72,9.49,9.49,0,0,0,6.72-2.78l84-84a9.51,9.51,0,0,0,0-13.44Z" />
+          </svg>
+        </div>
+      </div>
+      <div class="col-sm-5 mt-sm-0 mt-5">
+        <div class="row no-gutters justify-content-end">
+          <div class="col-10 col-sm-12 text-extra-small text-uppercase text-muted text-left pl-2">receiving</div>
+          <div class="col-10 col-sm-12 bg-white position-relative">
+            <div class="row ml-1">
+              <div class="col-12 font-weight-bold text-left exchange-quote-amount" [style.color]="quote.to_exchange.asset.color">
+                <span>{{quote.to_quantity | number :'1.0-4'}} {{quote.to_exchange.asset.symbol}}</span>
+              </div>
+            </div>
+            <img class="position-absolute asset-icon-right" [src]="utilService.getColorIcon(receiveSymbol)">
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="w-75">
+    <div class="row mt-1">
+      <div class="col-sm-12 font-weight-bold">Do you confirm this exchange?</div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-6 text-right">
+        <button type="button" class="btn btn-sm btn-primary bg-secondary" (click)="modalRef.hide()">Cancel</button>
+      </div>
+      <div class="col-6 text-left">
+        <button type="button" class="btn btn-sm btn-primary" (click)="onConfirm()">
+          <span *ngIf="isSubmitted">
+            <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+          </span>
+          <span *ngIf="!isSubmitted">Confirm</span>
+        </button>
+      </div>
+    </div>
+    <button type="button" class="exchange-modal close" aria-label="Send" (click)="modalRef.hide()">
+      <i class="fa fa-times-circle text-white" aria-hidden="true"></i>
+    </button>
+  </div>
+</ng-template>

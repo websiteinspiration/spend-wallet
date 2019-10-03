@@ -1,0 +1,47 @@
+<div class="chart-container">
+    <div class="parent-section" (scroll)="onScroll($event)">
+        <div #chartContainer class="chart">
+            <svg #svg height="300"></svg>
+        </div>
+    </div>
+    <div class="periods-container d-flex justify-content-around">
+        <a [class.active]="option === '24h'" class="btn" (click)="selectPeriod('24h', 0)">24H</a>
+        <a [class.active]="option === '7d'" class="btn" (click)="selectPeriod('7d', 1)">7D</a>
+        <a [class.active]="option === '1m'" class="btn" (click)="selectPeriod('1m', 2)">1M</a>
+        <a [class.active]="option === '3m'" class="btn" (click)="selectPeriod('3m', 3)">3M</a>
+        <a [class.active]="option === '1y'" class="btn" (click)="selectPeriod('1y', 4)">1Y</a>
+        <a [class.active]="option === 'all'" class="btn" (click)="selectPeriod('all', 5)">All</a>
+    </div>
+    <div class="periodContentContainer p-3">
+        <div class="row">
+            <div class="col-sm-6 withBorder">
+                <div class="row">
+                    <div class="col-md-5 col-12 text-left itemTitle">Market Cap</div>
+                    <div class="col-md-7 col-12 text-right" id="marketCap"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-12 text-left itemTitle">Volume ({{option | titlecase}})</div>
+                    <div class="col-md-7 col-12 text-right" id="volume"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-md-5 col-12 text-left itemTitle">Circulating Supply</div>
+                    <div class="col-md-7 col-12 text-right" id="circSupply"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-12 text-left itemTitle">Max Supply</div>
+                    <div class="col-md-7 col-12 text-right" id="maxSupply"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip-container">
+        <div id="bar-hover"></div>
+        <div id="tooltip-line"></div>
+        <div id="line-point"></div>
+        <div id="line-top-box"></div>
+        <div id="line-bottom-box"></div>
+    </div>
+</div>

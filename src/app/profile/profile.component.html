@@ -1,0 +1,375 @@
+<app-upper-menu></app-upper-menu>
+<div class="profile-page">
+
+  <div class="container body">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="row ">
+          <div class="col-lg-3 col-md-12">
+            <div class="text-center user-image">
+              <img class="rounded" [src]="user.avatar || '/assets/images/user-icon.jpg'">
+              <input type="file" (change)="onAvatarUpload(file.files)" accept="image/*" #file hidden>
+              <div (click)="file.click()" class="add-image">
+                +
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-12 user-info">
+            <div class="row">
+              <div class="col-9">
+                <div class="name">{{user.firstName}} {{user.lastName}}</div>
+                <div class="email">{{user.email}}</div>
+              </div>
+              <div class="col-3">
+                <div class="name text-center">Tier</div>
+                <div class="email text-center">{{user.tierLevel}}</div>
+              </div>
+            </div>
+            <hr>
+            <div class="row ">
+              <div class="col-6 user-last-login">
+                <div class="row info-label">
+                  <div class="col-12">
+                    LAST LOGIN
+                  </div>
+
+                </div>
+                <div class="row info-value">
+                  <div class="col-12">{{user.last_login_at}}</div>
+                </div>
+              </div>
+
+              <div class="col-6 user-last-login">
+                <div class="row info-label">
+                  <div class="col-12"> IP Address</div>
+                </div>
+                <div class="row info-value">
+                  <div class="col-12">{{user.last_login_ip}}</div>
+                </div>
+              </div>
+
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-12">
+                <button class="btn btn-xs btn-primary btn-block" (click)="onVerification()">
+                  Start Verification Upgrade
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 card">
+        <div class="title">
+          Change E-mail
+        </div>
+        <form (ngSubmit)="changeEmail(emailForm)" #emailForm="ngForm">
+          <div class="row ">
+            <div class="col-lg-6 col-md-12">
+              <p class="text-small">
+                Your email address may be used for verification purposes and correspondences from our Spend team.
+              </p>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <div class="row">
+
+                <div class="col-12">
+                  <div class="input-group">
+                    <input class="form-control email-old" disabled type="text" [ngModel]="emailReadonly"
+                      [ngModelOptions]="{standalone: true}">
+                    <div class="input-group-addon eye-addon">
+                      <img class="eye" src="assets/images/eye.png" (mousedown)="showEmail()" (mouseup)="hideEmail()">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <input class="form-control" type="email" placeholder="Enter your new email address here" [(ngModel)]="model.email"
+                    name="email" email #email="ngModel">
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <button [disabled]="!model.email || email.invalid" type="submit" class="btn btn-primary">
+                Confirm
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row card change-password ">
+      <div class="col-12">
+        <div class="title">Change Password</div>
+        <form (ngSubmit)="changePassword(passwordForm)" #passwordForm="ngForm">
+          <div class="row pt-4">
+            <div class="col-lg-4 col-md-12">
+              <label class="control-label">Current Password</label>
+              <input class="form-control" type="password" name="oldPassword" [(ngModel)]="model.oldPassword"
+                #oldPassword="ngModel" placeholder="Please, enter your current password here" required>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <label class="control-label"> New Password</label>
+              <input class="form-control" type="password" name="newPassword" [(ngModel)]="model.newPassword"
+                #newPassword="ngModel" required>
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <label class="control-label"> Confirm New Password</label>
+              <input class="form-control" type="password" name="confirmPassword" [(ngModel)]="model.confirmPassword"
+                #confirmPassword="ngModel" required>
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-xs-6 col-lg-3 offset-lg-9">
+              <button class="btn btn-primary btn-block">Change Password</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row card phone-numbers">
+      <div class="col-12">
+        <div class="title">
+          Phone Numbers
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-lg-4 col-md-12">
+            <div class="row">
+              <div class="col-lg-3 col-md-4">
+                <img class="img-responsive" src="assets/images/shield.png">
+              </div>
+
+              <div class="col-lg-9 col-md-8">
+                <p class="text-small">
+                  Make sure your phone number is always updated for better security.
+                </p>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <label class="control-label">Phone Numbers</label>
+            <br>
+            <div class="flex-row phone-txt">
+              <input type="text" [placeholder]="phonePlaceHolder" ng2TelInput [ng2TelInputOptions]="ng2TelInputOptions"
+                disabled class="form-control" (intlTelInputObject)="telInputObject($event)">
+
+              <span class="flex-row verified" *ngIf="user.phoneVerified">
+                <i class="fa fa-check"></i> verified
+              </span>
+              <span class="flex-row unverified" *ngIf="!user.phoneVerified">
+                <i class="fa fa-exclamation"></i> unverified
+              </span>
+
+
+            </div>
+
+            <button class="btn btn-primary pull-right" (click)="changePhone()">
+              Update Phone Number
+            </button>
+
+            <button *ngIf="!user.phoneVerified" class="btn btn-primary pull-right" (click)="changePhone(true)">
+              Resend Verification
+            </button>
+
+          </div>
+          <div class="col-lg-4 col-md-12  a2f-section">
+            <div class="row">
+              <div class="col-lg-3 col-md-2">
+                <img class="img-responsive" src="assets/images/mobile.png">
+              </div>
+              <div class="col-lg-9 col-md-10">
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn btn-lg btn-primary btn-block a2f no-shadow" (click)="phone2FA()" *ngIf="!user.mfa"
+                      [disabled]="!user.phoneVerified">
+                      2F Authentication
+                      <div>Click to enable</div>
+                    </button>
+                    <button class="btn btn-lg btn-primary btn-block a2f no-shadow" (click)="phone2FA()" *ngIf="user.mfa">
+                      Reset
+                    </button>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <p class="message1">Your Two-factor Authentication is:
+                      {{user.mfa?'SMS':(user.softwareMfa?'GoogleAuth':'off')}}</p>
+                    <p class="message2" *ngIf="!user.softwareMfa">For more security, enable the authenticator app</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row card personal">
+      <div class="col-12">
+        <div class="title">Personal Details</div>
+        <form (ngSubmit)="changePersonalInformation(personalForm)" #personalForm="ngForm">
+          <div class="row">
+            <div class="col-md-4 col-xs-12 ">
+
+              <div class="col-lg-3 col-md-4">
+                <img class="img-responsive" src="assets/images/id-card.png">
+              </div>
+
+              <div class="col-lg-9 col-md-8">
+                <p class="text-small">
+                  Your personal information is never shown to other users
+                </p>
+              </div>
+
+
+            </div>
+            <div class="col-md-8 col-xs-12">
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <label class="control-label"> Legal First Name</label>
+                  <input class="form-control" [disabled]="model.user.hasfirstName" type="text" name="firstName"
+                    [(ngModel)]="model.user.firstName" #firstName="ngModel" required>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                  <label class="control-label"> Legal Last Name</label>
+                  <input class="form-control" [disabled]="model.user.haslastName" type="text" name="lastName"
+                    [(ngModel)]="model.user.lastName" #lastName="ngModel" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <label class="control-label"> Date of Birth</label>
+                  <select class="form-control" [disabled]="model.user.hasmonth" type="text" placeholder="Month" name="month"
+                    [(ngModel)]="model.user.month" #month="ngModel" required>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+                <div class="col-md-3 col-xs-12 noLabel">
+                  <input class="form-control" [disabled]="model.user.hasday" type="text" placeholder="Day" name="day"
+                    [(ngModel)]="model.user.day" #day="ngModel" required></div>
+
+                <div class="col-md-3 col-xs-12 noLabel">
+
+                  <input class="form-control" [disabled]="model.user.hasyear" type="text" placeholder="year" name="year"
+                    [(ngModel)]="model.user.year" #year="ngModel" required></div>
+
+
+              </div>
+            </div>
+
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4 col-xs-12">
+
+              <div class="col-lg-3 col-md-4">
+                <img class="img-responsive" src="assets/images/location-pin.png">
+              </div>
+
+              <div class="col-lg-9 col-md-8">
+                <p class="text-small">
+                  Your personal addresses is never shown
+                  to other users
+                </p>
+              </div>
+            </div>
+            <div class="col-md-8 col-xs-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="control-label"> Country</label>
+
+                  <select class="form-control" type="Country" name="country" required="true" [disabled]="model.user.hascountry"
+                    [(ngModel)]="model.user.country" (ngModelChange)="onCountrySelect()" #country="ngModel">
+                    <option value="" selected>Select Country</option>
+
+                    <option value="{{country.code}}" *ngFor="let country of countries">
+                      {{ country.name }}
+                    </option>
+                  </select>
+
+
+                </div>
+                <div class="col-md-3 col-xs-12">
+                  <label class="control-label"> State</label>
+
+                  <select class="form-control" type="state" name="state" required="true" [disabled]="model.user.hasstate"
+                    [(ngModel)]="model.user.state" #state="ngModel">
+                    <option value="" selected>Select State</option>
+                    <option value="{{state.code}}" *ngFor="let state of states">
+                      {{ state.name }}
+                    </option>
+                  </select>
+
+                </div>
+                <div class="col-md-3 col-xs-12">
+                  <label class="control-label"> ZIP Code</label>
+                  <input class="form-control" type="text" name="zipcode" [disabled]="model.user.haszipcode" [(ngModel)]="model.user.zipcode"
+                    #zipcode="ngModel" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="control-label"> City</label>
+                  <input class="form-control" [disabled]="model.user.hascity" type="text" name="city" [(ngModel)]="model.user.city"
+                    #city="ngModel">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="control-label"> Street Address 1 </label>
+                  <input class="form-control" [disabled]="model.user.hasaddress" type="text" name="address" [(ngModel)]="model.user.address"
+                    #address="ngModel">
+                </div>
+                <div class="col-md-6">
+                  <label class="control-label"> Street Address 2 </label>
+                  <input class="form-control" [disabled]="!model.user.editable" type="text" name="address2" [(ngModel)]="model.user.address2"
+                    #address2="ngModel">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <button *ngIf="model.user.editable" type="submit" class="btn btn-primary pull-right">Save</button>
+              <span *ngIf="!model.user.editable" class="non-edit-message pull-right">
+                <a class="btn-link" href="https://help.spend.com/hc/en-us/requests/new">To update your personal
+                  information, please contact support.</a>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<app-change-phone-modal #changePhoneModal [oldPhone]="user.phone"></app-change-phone-modal>
+<app-google-auth-modal #googleAuthModal></app-google-auth-modal>

@@ -1,0 +1,297 @@
+<app-upper-menu></app-upper-menu>
+<div class="container">
+  <div class="mt-5" *ngIf="step === 1">
+    <div class="row pt-5">
+      <div class="col col-12 h1 text-center text-light">Tier Limits</div>
+    </div>
+    <div class="row pt-2 justify-content-center no-gutters text-medium">
+      <div class="col-12 col-lg-3 col-md-6 col-sm-12 text-center pt-3">
+        <div class="btn btn-outline-light btn-lg" [class.disabled]="user.tierLevel >= 0 || 0 > maxTier">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <span class="badge badge-light rounded-circle mr-2">0</span>
+            </div>
+            <div class="col-auto pt-2">
+              <span *ngIf=" 0 <= maxTier">Tier level</span>
+              <span *ngIf=" 0 > maxTier" class="badge badge-pill badge-secondary">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-md-6 col-sm-12 text-center pt-3">
+        <div class="btn btn-outline-light btn-lg" [class.disabled]="user.tierLevel >= 1 || 1 > maxTier">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <span class="badge badge-light rounded-circle mr-2">1</span>
+            </div>
+            <div class="col-auto pt-2">
+              <span *ngIf=" 1 <= maxTier">Tier level</span>
+              <span *ngIf=" 1 > maxTier" class="badge badge-pill badge-secondary">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-md-6 col-sm-12 text-center pt-3">
+        <div class="btn btn-outline-light btn-lg" [class.disabled]="user.tierLevel >= 2 || 2 > maxTier">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <span class="badge badge-light rounded-circle mr-2">2</span>
+            </div>
+            <div class="col-auto pt-2">
+              <span *ngIf=" 2 <= maxTier">Tier level</span>
+              <span *ngIf=" 2 > maxTier" class="badge badge-pill badge-secondary">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3 col-md-6 col-sm-12 text-center pt-3">
+        <div class="btn btn-outline-light btn-lg" [class.disabled]="user.tierLevel >= 3 || 3 > maxTier">
+          <div class="row no-gutters">
+            <div class="col-auto">
+              <span class="badge badge-light rounded-circle mr-2">3</span>
+            </div>
+            <div class="col-auto pt-2">
+              <span *ngIf=" 3 <= maxTier">Tier level</span>
+              <span *ngIf=" 3 > maxTier" class="badge badge-pill badge-secondary">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-light btn-lg text-primary text-uppercase pl-5 pr-5" (click)="onUpgrade()" [disabled]="user.tierLevel >= maxTier || user.tierLevel === 3">upgrade</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="step === 2">
+    <div class="row pt-5">
+      <div class="col col-sm-12 h2 text-center text-light font-weight-bold">Verification</div>
+    </div>
+    <div class="row pt-3">
+      <div class="col col-sm-12">
+        <div class="card">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-6 border-right">
+                <div class="row">
+                  <div class="col-1"><span class="badge badge-primary rounded-circle">1</span></div>
+                  <div class="col-11 text-uppercase font-weight-bold">Document - NIN Picture ID</div>
+                </div>
+                <div class="row pt-4 text-muted">
+                  <div class="col col-sm-12">
+                    A clear and Legible picture of the account holders NIN picture ID. Acceptable forms of a NIN ID’s
+                    include one of the following:
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col col-sm-12">
+                    <ul>
+                      <li>Passport</li>
+                      <li>Government issued Identify Card</li>
+                      <li>Driver License</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row pt-2 text-muted">
+                  <div class="col col-sm-12">
+                    The picture of the NIN ID must include the following:
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col col-sm-12">
+                    <ul>
+                      <li>Clear and Legible color scan</li>
+                      <li>Front and back of the Government issued Identify Card</li>
+                      <li>Expiration date is not expired</li>
+                      <li>Government issued Identification Number</li>
+                      <li>Date of birth</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col col-sm-12">
+                    <img class="img-fluid" src="/assets/images/verification/passport.png">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 pt-3 pt-md-0">
+                <div class="row">
+                  <div class="col-1"><span class="badge badge-primary rounded-circle">2</span></div>
+                  <div class="col-11 text-uppercase font-weight-bold">Document - Picture of your self holding
+                    your NIN document</div>
+                </div>
+                <div class="row pt-4 text-muted">
+                  <div class="col-12">
+                    Please hold the ID and paper in your hand(s). It’s fine to hold both the paper and the ID in the
+                    same hand, however must adhere to the following guidelines:
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-12">
+                    <ul>
+                      <li>The NIN ID must be clear and legible in the picture</li>
+                      <li>Account holder’s face must not be covered anything</li>
+                      <li>Do not wear any facial items like sunglasses, scarfs, lorem Ipsum</li>
+                      <li>Do not block the documents with your fingers</li>
+                      <li>Do not stack the documents on top of one another</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-12 col-sm-3 text-center pt-3 pt-sm-0">
+                    <img class="img-fluid" src="/assets/images/verification/person-1.png">
+                  </div>
+                  <div class="col-12 col-sm-3 text-center pt-3 pt-sm-0">
+                    <img class="img-fluid" src="/assets/images/verification/person-2.png">
+                  </div>
+                  <div class="col-12 col-sm-3 text-center pt-3 pt-sm-0">
+                    <img class="img-fluid" src="/assets/images/verification/person-3.png">
+                  </div>
+                  <div class="col-12 col-sm-3 text-center pt-3 pt-sm-0">
+                    <img class="img-fluid" src="/assets/images/verification/person-4.png">
+                  </div>
+                </div>
+                <div class="row pt-5">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 col-sm-1"><span class="badge badge-primary rounded-circle">3</span></div>
+                      <div class="col-12 col-sm-11 h5 font-weight-bold">
+                        Document - Any extra scanned copy of
+                        a supported document that provesyour
+                        identify, address, and any other
+                        information you provided at your
+                        sign up
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5 mb-2">
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-light btn-lg text-primary text-uppercase pl-5 pr-5" (click)="onGetStarted()">get
+          started</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="step === 3">
+    <div class="row pt-5">
+      <div class="col col-sm-12 h2 text-center text-light font-weight-bold">Send Documents</div>
+    </div>
+    <div class="row pt-3 pb-3">
+      <div class="col col-sm-12">
+        <div class="card">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="row">
+                  <div class="col-12 col-md-4 text-center text-md-right">
+                    <img class="img-fluid w-25" src="/assets/images/verification/user-sm.png">
+                  </div>
+                  <div class="col-12 col-md-8 text-center text-md-left font-weight-bold pt-1">Take Picture (Selfie)</div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col col-sm-11 border border-primary over-flow-auto">
+                    <img class="img-fluid" src="/assets/images/verification/upload-background.png">
+                    <img *ngIf="!nin_photo" class="upload-icon" src="/assets/images/verification/user.png">
+                    <img *ngIf="nin_photo && nin_photo !== 'loading'" class="uploaded-img" [src]="nin_photo">
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col col-sm-11 text-center">
+                    <input type="file" id="file1" (change)="onFileUpload(file1)" accept="image/*" #file1 hidden>
+                    <button type="button" class="btn btn-primary pl-4 pr-4" (click)="file1.click()" [disabled]="nin_photo && nin_photo !== 'loading'">
+                      <span *ngIf="nin_photo === 'loading'">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Uploading...
+                      </span>
+                      <span *ngIf="nin_photo !== 'loading'">Take Picture (selfie)</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row pt-5">
+                  <div class="col-12 col-md-4 text-center text-md-right">
+                    <img class="img-fluid w-25" src="/assets/images/verification/doc-front-sm.png">
+                  </div>
+                  <div class="col-12 col-md-8 text-center text-md-left font-weight-bold pt-1">Take Picture (Front)</div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col col-sm-11 border border-primary over-flow-auto">
+                    <img class="img-fluid" src="/assets/images/verification/upload-background.png">
+                    <img *ngIf="!extra_doc_1" class="upload-icon" src="/assets/images/verification/doc-front.png">
+                    <img *ngIf="extra_doc_1 && extra_doc_1 !== 'loading'" class="uploaded-img" [src]="extra_doc_1">
+                  </div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col col-sm-11 text-center">
+                    <input type="file" id="file2" (change)="onFileUpload(file2)" accept="image/*" #file2 hidden>
+                    <button type="button" class="btn btn-primary pl-4 pr-4" (click)="file2.click()" [disabled]="extra_doc_1 && extra_doc_1 !== 'loading'">
+                      <span *ngIf="extra_doc_1 === 'loading'">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Uploading...
+                      </span>
+                      <span *ngIf="extra_doc_1 !== 'loading'">Take Picture (Front)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 pt-3 pt-md-0">
+                <div class="row justify-content-end">
+                  <div class="col-12 col-md-4 text-center text-md-right">
+                    <img class="img-fluid w-25" src="/assets/images/verification/doc-sm.png">
+                  </div>
+                  <div class="col-12 col-md-8 text-center text-md-left font-weight-bold pt-1">Take Picture (Document)</div>
+                </div>
+                <div class="row justify-content-end pt-2">
+                  <div class="col col-sm-11 border border-primary over-flow-auto">
+                    <img class="img-fluid" src="/assets/images/verification/upload-background.png">
+                    <img *ngIf="!nin_document" class="upload-icon" src="/assets/images/verification/doc.png">
+                    <img *ngIf="nin_document && nin_document !== 'loading'" class="uploaded-img" [src]="nin_document">
+                  </div>
+                </div>
+                <div class="row justify-content-end pt-3">
+                  <div class="col col-sm-11 text-center">
+                    <input type="file" id="file3" (change)="onFileUpload(file3)" accept="image/*" #file3 hidden>
+                    <button type="button" class="btn btn-primary pl-4 pr-4" (click)="file3.click()" [disabled]="nin_document && nin_document !== 'loading'">
+                      <span *ngIf="nin_document === 'loading'">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Uploading...
+                      </span>
+                      <span *ngIf="nin_document !== 'loading'">Take Picture (Document)</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="row justify-content-end pt-5">
+                  <div class="col-12 col-md-4 text-center text-md-right">
+                    <img class="img-fluid w-25" src="/assets/images/verification/doc-back-sm.png">
+                  </div>
+                  <div class="col-12 col-md-8 text-center text-md-left font-weight-bold pt-1">Take Picture (BACK)</div>
+                </div>
+                <div class="row justify-content-end pt-2">
+                  <div class="col col-sm-11 border border-primary over-flow-auto">
+                    <img class="img-fluid" src="/assets/images/verification/upload-background.png">
+                    <img *ngIf="!extra_doc_2" class="upload-icon" src="/assets/images/verification/doc-back.png">
+                    <img *ngIf="extra_doc_2 && extra_doc_2 !== 'loading'" class="uploaded-img" [src]="extra_doc_2">
+                  </div>
+                </div>
+                <div class="row justify-content-end pt-3">
+                  <div class="col col-sm-12 text-center">
+                    <input type="file" id="file4" (change)="onFileUpload(file4)" accept="image/*" #file4 hidden>
+                    <button type="button" class="btn btn-primary pl-4 pr-4" (click)="file4.click()" [disabled]="extra_doc_2 && extra_doc_2 !== 'loading'">
+                      <span *ngIf="extra_doc_2 === 'loading'">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Uploading...
+                      </span>
+                      <span *ngIf="extra_doc_2 !== 'loading'">Take Picture (BACK)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

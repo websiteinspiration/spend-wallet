@@ -1,0 +1,134 @@
+.modal {
+  height: 100%;
+  width: 50%;
+
+}
+
+.bg-modal-phone {
+  background-color: rgba(242, 242, 242, 1);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.send-modal.close {
+  position: absolute;
+  right: -25px;
+  top: 2px;
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 0px 5px 3px 5px;
+  color: white;
+  opacity: 0.5;
+}
+
+.modal-dialog {
+  margin-top: 20vh !important;
+}
+
+.image-holder {
+  text-align: center;
+}
+
+.modalImg {
+  margin-top: -50px;
+  height: 100px;
+  width: 100px;
+  background-color: #7BA750;
+  border-radius: 50%;
+  display: inline-grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.modalImg img {
+  width: 50px;
+}
+
+.modal-body {
+  padding-top: 0;
+  padding-bottom: 0px;
+}
+
+.bg-modal-phone {
+  text-align: center;
+}
+
+.label {
+  display: block;
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+}
+
+input {
+  width: 100%;
+  margin: 30px 0 0 0;
+  text-align: center;
+  font-size: 45px;
+  color: black;
+  outline: none;
+
+}
+
+.old-phone {
+  font-size: 32px;
+}
+
+.new-phone {
+  box-shadow: 5px 10px 20px 0 rgba(1, 2, 2, 0.1);
+  background-color: #f6f6f6;
+  border: solid 2px #b7b7b7;
+  width: fit-content;
+  padding: 10px 10px 0px 10px;
+  margin: 10px auto;
+}
+
+.new-phone .label {
+  padding: 0;
+  margin: 0;
+
+}
+
+.new-phone span {
+  font-size: 32px;
+}
+
+.code2fa-txt {
+  letter-spacing: 15px;
+  font-size: 45px;
+}
+
+#phone4-modal-body {
+  margin-top: 50px;
+}
+
+#phone3-modal-body .label {
+  width: 50%;
+  margin: 40px auto 0 auto;
+  white-space: normal;
+}
+
+#phone4-modal-body .label {
+  font-size: 31px;
+  width: 60%;
+  white-space: normal;
+  margin: 40px auto 0 auto;
+}
+
+#phone4-modal-body .your-phone {
+  font-size: 37px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #7aa651;
+  margin-top: 21px;
+}

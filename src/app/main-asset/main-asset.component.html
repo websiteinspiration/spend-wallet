@@ -1,0 +1,213 @@
+<div>
+  <app-upper-menu [toggle]="toggle" (toggleChange)="toggleChange()"></app-upper-menu>
+  <div class="sidenav" [ngClass]="{'toggle':toggle, 'opened': !menu}">
+    <div class="menu">
+      <div class="menu-items">
+        <div class="menu-header">
+          <div class="row mr-0 ml-0">
+            <div class="col-sm-6">
+              <img class="img-fluid float-left" [style.width]="'9rem'" src="../assets/images/spend.png"/>
+            </div>
+            <div class="col-sm-6 pt-1" [style.cursor]="'pointer'" (click)="toggleChange()">
+              <img class="img-fluid float-right" [style.width]="'3rem'" src="assets/images/menu.png">
+            </div>
+          </div>
+        </div>
+        <div class="search-container">
+          <div class="row mr-0 ml-0">
+            <div class="col-auto input-box">
+              <input type="text" [(ngModel)]="searchValue" (ngModelChange)="searching()">
+            </div>
+            <div class="col icon-box" (click)="showMenu()">
+              <div><img src="../assets/images/search.png" class='img-responsive search-icon'/></div>
+              <div>Search</div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <ul class="scrolling">
+          <ng-container *ngFor="let symbol of symbolsDisplayed;">
+            <li  (click)="selectSymbol(symbol, $event)"
+                [attr.data-symbol]="symbol.symbol">
+              <div class="iconContainer">
+                <div class="icon"><img [src]="utilService.getColorIcon(symbol)"></div>
+              </div>
+              <div class="iconlabel2"><p>{{symbol.title}}</p></div>
+              <div class="closedData">
+                <div><span [style.color]="selectedSymbolData.color">{{selectedWalletData.balanceFormatted}}</span></div>
+                <div><span>{{selectedWalletData.balanceCurrencyFormatted}}</span> USD</div>
+              </div>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="pt-3 container" (click)="onPanelClick()">
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-center align-items-center">
+        <button type="button" class="btn btn-arrow" (click)="slide(false)"><i class="fa fa-arrow-circle-left"></i></button>
+        <div class="d-flex flex-column align-items-center asset-details" [class.slideLeft]="forward === 1" [class.slideRight]="forward === 2">
+          <div class="text-center">
+            <img class="img-fluid d-block mx-auto asset-icon" [src]="utilService.getColorIcon(selectedWalletData.symbolData)">
+            <h1 class="text-white font-weight-bold text-center">{{selectedWalletData.balanceCurrencyFormatted}} USD</h1>
+            <h4 class="text-white mt-0">{{selectedWalletData.title}}</h4>
+            <h3 class="text-white mt-0">{{selectedWalletData.balanceFormatted}}</h3>
+          </div>
+        </div>
+        <button type="button" class="btn btn-arrow" (click)="slide(true)"><i class="fa fa-arrow-circle-right"></i></button>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <button type="button" class="btn status-btn rounded-circle p-0" (click)="toggleDefault()" [style.padding]="'1px'">
+                <i class="fas fa-power-off fa-2x rounded-circle p-2"
+                  [style.border]="'solid 2px'"
+                  [style.border-color]="selectedSymbolData.color"
+                  [class.active]="selectedWalletData.isDefault">
+                </i>
+          </button>
+        </div>
+        <div class="col-sm-12 mt-3">
+          <div class="d-flex justify-content-around">
+            <button type="button" class="btn btn-light" [routerLink]="['/buy-sell']">Buy</button>
+            <button type="button" class="btn btn-light" [routerLink]="['/buy-sell']">Sell</button>
+            <button type="button" *ngIf="selectedSymbolData.type === 'blockchain'" class="btn btn-light" [routerLink]="['/exchange']">Exchange</button>
+            <button type="button" class="btn btn-light" (click)="sendPopup()">Send</button>
+            <button type="button" class="btn btn-light" (click)="receivePopup()">{{selectedSymbolData.type === 'blockchain' ? 'Receive' : 'Deposit'}}</button>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="selectedSymbolData.type === 'blockchain'">
+        <div class="row mt-3 mb-4 justify-content-center">
+          <div class="col-lg-12 col-xs-12">
+            <div class="card pl-0 pr-0">
+              <app-chart [style.opacity]="graphOpacity" [option]="activeTimeFilter" [symbol]="selectedSymbolData" [data]="selectedSymbolMarketData" (changeFilter)="onTimeFilter($event)"></app-chart>
+              <div class="overlay" *ngIf="graphLoading">
+                <div *ngIf="graphMsg">{{graphMsg}}</div>
+                <div *ngIf="!graphMsg"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i></div>
+              </div>
+              <div class="d-flex align-items-center justify-content-around pt-3 pb-3 second-details" style="border-bottom: 1px solid #ddd">
+                <div>
+                  <p class="desc-title text-blue">Price</p>
+                  <p class="desc-data">{{selectedWalletData.symbolData.price}}</p>
+                </div>
+                <div>
+                  <p class="desc-title text-blue">24h Change</p>
+                  <p class="desc-data">{{selectedWalletData.symbolData.percentChange24h}}%</p>
+                </div>
+                <div>
+                  <p class="desc-title text-blue">Market Cap</p>
+                  <p class="desc-data">{{getMegaFormattedValue(selectedWalletData.symbolData.marketCap)}}</p>
+                </div>
+                <div>
+                  <p class="desc-title text-blue">24h Vol (Binance)</p>
+                  <p class="desc-data">{{getMegaFormattedValue(selectedWalletData.symbolData.volumeUsd24h)}}</p>
+                </div>
+                <div>
+                  <p class="desc-title text-blue">24h Vol (Global)</p>
+                  <p class="desc-data">{{getMegaFormattedValue(selectedWalletData.symbolData.volumeUsd24h)}}</p>
+                </div>
+                <div>
+                  <p class="desc-title text-blue">Circulating Supply</p>
+                  <p class="desc-data">{{getMegaFormattedValue(selectedWalletData.symbolData.totalSupply)}}</p>
+                </div>
+              </div>
+              <div class="col-sm-12 pt-3">
+                <div class="row">
+                  <div class="col-lg-6 col-md-12 pt-3" style="border-right: 1px solid #ddd;">
+                    <h3 class="text-blue">My Wallet</h3>
+                    <perfect-scrollbar style="max-height: 450px;">
+                      <div *ngFor="let w of getWallets(); let i = index" class="d-flex align-items-center justify-content-between item-wallet pt-2 pb-2">
+                        <img [src]="utilService.getColorIcon(w.symbolData)" width="60" class="mr-3">
+                        <h6>{{w.title}}</h6>
+                        <div style="flex: 3;font-size: 14px;">
+                          <span class="mr-4 text-blue">{{w.symbolData.price}}</span>
+                          <span class="text-blue">{{w.symbolData.percentChange24h}}%</span>
+                          <p class="text-blue">24H VOL: {{w.symbolData.volumeUsd24h}}</p>
+                        </div>
+                        <div class="text-center">
+                          <span class="rank-num text-blue">{{i + 1}}</span> -->
+                          <span>{{getMegaFormattedValue(w.symbolData.marketCap)}}</span>
+                        </div>
+                      </div>
+                    </perfect-scrollbar>
+                  </div>
+                  <div class="col-lg-6 col-md-12 pt-3">
+                    <h3 class="text-blue">Latest History</h3>
+                    <perfect-scrollbar style="max-height: 450px;" (psYReachEnd)="onScroll($event)" (psScrollY)="onScrollStart()">
+                      <ng-container *ngFor="let trans of transactions;">
+                        <div (click)="collapse(trans)" class="d-flex align-items-center justify-content-between item-transaction pt-3 pb-3 pr-3">
+                          <div [innerHTML]="getIcon(trans)" style="margin-right: 10px;display: inline-flex;"></div>
+                          <div style="flex: 1;">
+                            <h5 class="text-blue m-0" style="font-weight:bold;">{{getTextOfTransaction(trans.type)}}</h5>
+                            <p class="trans-time m-0">{{getDateTime(trans.dateTime)}}</p>
+                          </div>
+                          <h5 class="m-0" style="font-weight:bold;">{{trans.amountFormatted}} <span class="trans-symbol">{{trans.symbol}}</span></h5>
+                        </div>
+                        <div class="info bg-white text-extra-small" [@slideInOut]="selectedTransactionId===trans.id?'in':'out'" [class.uncollapse]="selectedTransactionId===trans.id">
+                          <div class="row no-gutters">
+                            <div class="col-9 text-left">Status</div>
+                            <div class="col-3 text-right">
+                              <span placement="left" [tooltip]="tolTemplate" [containerClass]="getToolTipColor(trans.status)" [innerHtml]="getStatusIcon(trans.status)"></span>
+                            </div>
+                            <ng-template #tolTemplate>
+                              <span class="text-capitalize" *ngIf="trans.status === 'completed'">
+                                  {{trans.status}}
+                              </span>
+                              <span class="text-capitalize text-dark" *ngIf="trans.status === 'pending'">
+                                  {{trans.status}}
+                              </span>
+                              <span class="text-capitalize" *ngIf="trans.status === 'failed'">
+                                  {{trans.status}}
+                              </span>
+                            </ng-template>
+                          </div>
+                          <div class="row pt-1 no-gutters">
+                            <div class="col-5 text-left">Amount</div>
+                            <div class="col-2 text-center">USD</div>
+                            <div class="col-5 text-right font-weight-bold">{{trans.usdAmountAtTransactionFormatted}}</div>
+                          </div>
+                          <div class="row pt-1 no-gutters">
+                            <div class="col-5 text-left">Conversion Rate</div>
+                            <div class="col-2 text-center">USD</div>
+                            <div class="col-5 text-right font-weight-bold">{{trans.conversionRateAtTransactionFormatted}}</div>
+                          </div>
+                          <div class="row pt-1 no-gutters" *ngIf="trans.type=='Purchase'">
+                            <div class="col-6 text-left">{{trans.symbol}} Used </div>
+                            <div>{{trans.symbol}}</div>
+                            <div class="col-6 text-right font-weight-bold">{{trans.amountFormatted}} </div>
+                          </div>
+                          <div class="row pt-1 no-gutters">
+                            <div class="col-6 text-left">Transaction ID</div>
+                            <div class="col-6 text-right font-weight-bold">{{trans.id}}</div>
+                          </div>
+                          <div class="row pt-1 no-gutters" *ngIf="trans.txhash">
+                            <div class="col-6 text-left">TX Hash</div>
+                            <div class="col-6 text-right font-weight-bold">
+                              <a [href]="txUrls[trans.symbol] +trans.txhash" target="_blank">{{trans.txhash.slice(0,8)}}...</a>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <span *ngIf="transactionLoading">
+                        <i class="fa fa-spinner fa-spin fa-fw"></i> Loading...
+                      </span>
+                    </perfect-scrollbar>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="text-center about-section">
+  </div>
+</div>
+
+<app-send-modal #sendModal [selectedSymbolData]="selectedSymbolData" [selectedWalletData]="selectedWalletData">
+</app-send-modal>
+<app-receive-modal #receiveModal [selectedSymbolData]="selectedSymbolData" [selectedWalletData]="selectedWalletData">
+</app-receive-modal>
+<app-currency-modal [type]="currencyModalType" [symbol]="selectedSymbolData" [wallet]="selectedWalletData" #currencyModal></app-currency-modal>

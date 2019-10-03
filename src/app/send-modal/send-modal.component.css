@@ -1,0 +1,273 @@
+
+.modal {
+  height: 100%;
+  width: 50%;
+}
+
+.send-modal.close {
+  top: 2px;
+  right: -19px;
+  color: white;
+  position: absolute;
+}
+
+.modal-dialog {
+  margin-top: 20vh !important;
+}
+
+.noBorder {
+  border: none;
+}
+
+.noBorder:focus {
+  outline: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.modalImg {
+  margin-top: -50px;
+  height: 80px;
+  width: 80px;
+}
+
+.all {
+  height: 30px;
+  width: 30px;
+  margin-top: 20px;
+}
+
+.noBackground {
+  background: black;
+  font-size: 0.8rem;
+}
+
+.modalButton {
+
+  border-radius: 5px;
+  background-color: #2E81E3;
+  text-align: left;
+  font-family: Avenir;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 5px 23px;
+  border: none;
+  margin-top: 8px;
+
+  margin-bottom: 10px;
+}
+
+.modalButton.spinner {
+  padding: 5px 10px;
+  background-color: rgba(52, 131, 224, .8);
+}
+
+.fa-spinner {
+  font-size: 16px;
+}
+
+.modalSpanGreen {
+  color: #759F4E;
+}
+
+.modalSpanWhite {
+  color: #717171;
+}
+
+.send-address {
+  border-bottom: 1px solid #b5b5b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin: 15px 17% 0 17%;
+}
+
+.send-address img {
+  margin: 0 12px 11px 0;
+  width: 22px;
+}
+
+.modal-body {
+  padding-top: 0;
+  padding-bottom: 0px;
+}
+
+@media (min-width: 576px) {
+  .send-address input {
+    font-size: 1rem;
+    min-width: 370px;
+  }
+}
+
+@media (max-width: 575.98px) {
+.send-address input {
+  font-size: 1rem;
+  min-width: 200px;
+}
+}
+
+.send-address input::placeholder {
+  color: #D5D5D5;
+  font-weight: lighter;
+}
+
+.icon-mid {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.currency-fields {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  margin-top: 14px;
+  padding: 15px 15px;
+  border: 1px solid #b3b3b3;
+  box-shadow: 0 2px 8px 0 #ababab;
+  background-color: white;
+}
+
+.all-button {
+  background-color: #759F4E;
+  color: white;
+  font-weight: normal;
+  text-decoration: underline;
+  border-radius: 50%;
+  width: 29px;
+  height: 29px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 32px;
+  margin: 0 10px;
+  border: none;
+}
+
+.all-button :focus {
+  outline: none;
+}
+
+.currency-fields input {
+  font-size: 26px;
+  padding-left: 3px;
+  float: left;
+  width: 90%;
+
+}
+
+.currency-fields ::placeholder {
+  opacity: 1;
+  font-size: 26px;
+}
+
+.crypto ::placeholder {
+  vertical-align: bottom;
+}
+
+.fiat ::placeholder {
+  color: black;
+  vertical-align: top;
+
+}
+
+.crypto {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.crypto span {
+  font-size: 15px;
+  font-weight: normal;
+  vertical-align: bottom;
+
+}
+
+.fiat {
+  float: left;
+  border-top: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.fiat span {
+  font-size: 15px;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.bg-modal-send {
+  background-image: url("/assets/images/bg-modal-send.png");
+  background-size: contain;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  border-radius: 7px;
+  width: 100%;
+}
+
+input.error {
+  border-bottom: 1px solid red;
+  padding-bottom: 3px;
+}
+
+.send-btn-section img {
+  width: 32px;
+  height: 32px;
+  margin-left: 20px;
+  /*display: none;*/
+}
+
+#wallet-address-extra {
+  margin-top: 20px;
+  width: 45%;
+  background-color: #FFEFE8;
+  border: 1px solid #B2B2B2;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 3px;
+  min-width: 200px;
+
+}
+
+.extra {
+  text-align: center;
+}
+
+.extra::placeholder {
+  text-align: left;
+  padding-left: 43%;
+  text-overflow: ellipsis;
+}
+
+.extra-icon {
+  background-image: url(/assets/images/pencil-gray.png);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 36% 35%;
+  content: 'ddddsdsd';
+
+}
+
+.placeholder-img {
+  position: relative;
+  top: 45px;
+  left: 24%;
+  border: none;
+  color: #D5D5D5;
+  font-weight: lighter;
+}
+
+.placeholder-img img {
+  width: 16px !important;
+  height: 16px;
+}
+
+

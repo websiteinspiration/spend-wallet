@@ -1,0 +1,137 @@
+<app-upper-menu></app-upper-menu>
+<div class="container-fluid">
+  <div class="row">
+    <div class="container-fluid header" [style.backgroundColor]="headerColor">
+      <div class="row pt-5 text-center text-sm-left">
+        <div class="col-lg-7 market-data font-weight-bolder pt-5">
+          <div class="row justify-content-center justify-content-lg-end">
+            <div class="col-sm-4">
+              <div class="col-12 text-white">Market Cap</div>
+              <div class="col-12 text-white pt-1">{{selectedSymbolData.marketData.marketCapFormatted}}</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="col-12 text-white">Circulating Supply</div>
+              <div *ngIf="selectedSymbolData.marketData.totalSupplyFormatted !== '0'" class="col-12 text-white pt-1">{{selectedSymbolData.marketData.totalSupplyFormatted}}&nbsp;{{selectedSymbolData.symbol}}</div>
+              <div *ngIf="selectedSymbolData.marketData.totalSupplyFormatted === '0'" class="col-12 text-white pt-1">N/A</div>
+            </div>
+          </div>
+          <div class="row pt-2 justify-content-center justify-content-lg-end">
+            <div class="col-sm-4">
+              <div class="col-12 text-white">Volume (24h)</div>
+              <div class="col-12 text-white pt-1">{{selectedSymbolData.marketData.volumeUsd24hFormatted}}</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="col-12 text-white">Max Supply</div>
+              <div *ngIf="selectedSymbolData.marketData.maxSupplyFormatted !== '0'" class="col-12 text-white pt-1">{{selectedSymbolData.marketData.maxSupplyFormatted}}&nbsp;{{selectedSymbolData.symbol}}</div>
+              <div *ngIf="selectedSymbolData.marketData.maxSupplyFormatted === '0'" class="col-12 text-white pt-1">N/A</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 pt-5 text-left font-weight-bolder text-white">
+          <div class="row text-lg-left text-center">
+            <div class="col-12 symbol-title">{{selectedSymbolData.title}}</div>
+            <div class="col-12 symbol-price">{{selectedSymbolData.marketData.priceFormatted}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div id="chart-area" [style.height]="'25vh'" class="col-12"></div>
+      </div>
+    </div>
+  </div>
+  <div class="symbol-list" (mouseenter)="showArrow()" (mouseleave)="hideArrow()">
+    <div class="symbol-row justify-content-center" #symbolRow> -->
+    <ngx-slick class="carousel" 
+      [config]="slideConfig" 
+      (init)="slickInit($event)"
+      (breakpoint)="breakpoint($event)"
+      (afterChange)="afterChange($event)"
+      (beforeChange)="beforeChange($event)">
+        <div *ngFor="let symbol of symbols" ngxSlickItem class="slide col-auto symbol-item font-weight-bold text-small pt-1 pb-1 d-flex align-items-center" (click)="selectSymbol(symbol, $event)"
+          [class.text-primary]="symbol.symbol === selectedSymbolData.symbol">
+          <span><img width="40" class="symbol-icon pr-1" [src]="utilService.getColorIcon(symbol)"></span>
+          <span class="symbol-title">{{symbol.title}}</span>
+        </div>
+    </ngx-slick>
+  </div>
+  <div class="row mt-4 mb-5">
+    <div class="container">
+      <div class="row toggle-btn font-weight-bolder">
+        <div class="col-12 text-center">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-primary" (click)="onOptions(buy)">
+              <input type="radio" name="options" id="buy" autocomplete="off" #buy> Buy
+            </label>
+            <label class="btn btn-primary active" (click)="onOptions(sell)">
+              <input type="radio" name="options" id="sell" autocomplete="off" #sell> Sell
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5 justify-content-center">
+        <div class="col-12 col-lg-8">
+          <div class="card">
+            <img id="card-icon" [src]="utilService.getColorIcon(selectedSymbolData)">
+            <div class="row">
+              <div class="col-12 font-weight-bold h4 text-center text-capitalize">{{selectedOption}}&nbsp;{{selectedSymbolData.title}}</div>
+            </div>
+            <div class="row mt-1 font-weight-bold">
+              <div class="col-12 text-center">Payment Method</div>
+            </div>
+            <hr>
+            <div class="row justify-content-around font-weight-bolder text-extra-small">
+              <div *ngIf="flow.account && selectedOption === 'buy'" class="col-4 col-md-3 col-lg-2 text-center" id="ach" [style.cursor]="'pointer'"
+                (click)="onPaymentOption(ach.id)" [class.text-primary]=" paymentOption === ach.id" #ach>
+                <div class="row no-gutters">
+                  <div class="col-12">
+                    <img class="img-fluid" src="/assets/images/buy-sell/bank-sign.png">
+                  </div>
+                  <div class="col-12 pt-1">Bank/ACH</div>
+                </div>
+              </div>
+              <div class="col-4 col-md-3 col-lg-2 text-center" id="usd" [style.cursor]="'pointer'" (click)="onPaymentOption(usd.id)"
+                [class.text-primary]="paymentOption === usd.id" #usd>
+                <div class="row no-gutters">
+                  <div class="col-12">
+                    <img class="img-fluid" src="/assets/images/buy-sell/money-sign.png">
+                  </div>
+                  <div class="col-12 pt-1">USD Account</div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3 font-weight-bold">
+              <div class="col-12 text-center">Amount</div>
+            </div>
+            <hr>
+            <div class="row mt-3 justify-content-center">
+              <div class="col-sm-4 position-relative" [class.order-12]="selectedOption === 'buy'">
+                <input class="form-control form-control-lg pr-5" type="text" mask="0*.00000" id="symbolAmount" name="symbolAmount"
+                  [value]="symbolAmount" (keyup)="onSymbolAmount($event)" autocomplete="off" placeholder="0.00">
+                <span class="position-absolute font-weight-bolder input-symbol text-small text-secondary">{{selectedSymbolData.symbol}}</span>
+              </div>
+              <div class="col-3 col-sm-1 text-center pt-2 pb-sm-0 pb-2 order-6">
+                <img class="img-fluid align-bottom" src="/assets/images/buy-sell/exchange-sign.png">
+              </div>
+              <div class="col-sm-4 position-relative" [class.order-12]="selectedOption === 'sell'">
+                <input class="form-control form-control-lg pr-5" type="text" mask="0*.00000" id="usdAmount" name="usdAmount"
+                  [value]="usdAmount" (keyup)="onUsdAmount($event)" autocomplete="off" placeholder="0.00">
+                <span class="position-absolute font-weight-bolder input-symbol text-small text-secondary">USD</span>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <button class="btn btn-primary text-capitalize" (click)="onBuySell()" [disabled]="!paymentOption">
+                  <span *ngIf="isSubmitted">
+                    <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+                  </span>
+                  <span *ngIf="!isSubmitted">{{selectedOption}}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-exchange-modal [exchangeAmount]="from_amount" [quote]="quote" (submitted)="onExchangeDone($event)" #exchangeModal></app-exchange-modal>

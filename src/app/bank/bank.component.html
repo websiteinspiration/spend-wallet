@@ -1,0 +1,57 @@
+<app-upper-menu></app-upper-menu>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-12 text-center text-white font-weight-bold text-large">Bank Account</div>
+  </div>
+  <div class="row mt-2 mb-2 justify-content-center">
+    <div class="col-10">
+      <div class="card">
+        <div class="card-body">
+          <div *ngIf="!accounts" class="row">
+            <div class="col-12 text-center text-small">You haven't linked any accounts yet.</div>
+          </div>
+          <div *ngIf="!accounts" class="row mt-3 justify-content-center">
+            <div class="col-6 text-center">
+              <img class="img-fluid" [style.width]="'4rem'" src="/assets/images/bank icon.png">
+            </div>
+          </div>
+          <perfect-scrollbar style="max-height: 100vh">
+          <ng-container *ngFor="let account of accounts">
+            <div class="container">
+              <div class="row mb-1 justify-content-center">
+                <div class="col-12">
+                  <div class="card font-weight-bold text-medium">
+                    <div class="row">
+                      <div class="col-12 text-center text-sm-left">
+                        {{account.field.bankName}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-sm-6 text-center text-sm-left">&bull;&bull;&bull;&bull;&bull;&bull;&bull;{{account.field.accountNumber.slice(-4)}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 justify-content-center">
+                <div class="col-12 text-center text-sm-right">
+                  <button type="button" class="btn btn-link text-danger font-weight-bold" (click)="onAccountRemove(account)">Remove</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          </perfect-scrollbar>
+          <div class="row mt-3">
+            <div class="col-sm-12 text-center">
+              <button class="btn btn-primary" (click)="onAddAcccount()" [disabled]="addAccBtn()">
+                <span *ngIf="isSubmitted">
+                  <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+                </span>
+                <span *ngIf="!isSubmitted">Add Bank Account</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-bank-form-modal [flow]="flow" (submitted)="onModalClose($event)" #bankFormModal></app-bank-form-modal>

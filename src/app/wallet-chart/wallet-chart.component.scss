@@ -1,0 +1,104 @@
+#chartContainer {
+    width: 100%;
+}
+
+#priceTooltip,
+#dateTooltip,
+#divider,
+#dot {
+    position: absolute;
+    display: none;
+}
+
+#priceTooltip {
+    background-color: #2574c7;
+    border-radius: 5px;
+    color: white;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+#dateTooltip {
+    background-color: #6e6f6f;
+    border-radius: 5px;
+    color: white;
+    padding: 0 10px;
+}
+
+#divider {
+    border: 1px dashed #2574c7;
+}
+
+.periodTabContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    margin-top: 10px;
+    padding: 0 20px;
+
+    a {
+        color: #c5c5c5 !important;
+    }
+
+    .btn {
+        border-radius: 0px;
+        padding: 5px 10px;
+        font-size: 1.5rem;
+
+        &.active {
+            border-bottom: 3px solid #2574c7;
+            color: #2574c7 !important;
+        }
+
+        @media (max-width: 575.98px) {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        padding: 0;
+    }
+}
+
+.periodContentContainer {
+    padding: 20px;
+
+    .withBorder {
+        @media (min-width: 575.98px) {
+            border-right: 1px solid #ddd;
+        }
+    }
+    .itemTitle {
+        color: #ccc;
+        margin-right: 10px;
+    }
+
+    @media (max-width: 575.98px) {
+        font-size: 0.9rem;
+    }
+}
+
+.detailContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.detailContainer .label {
+    color: #ddd;
+    margin-right: 15px;
+}
+
+.walletInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#chartWrapper {
+    width: 100%;
+}

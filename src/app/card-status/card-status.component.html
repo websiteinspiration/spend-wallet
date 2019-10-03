@@ -1,0 +1,40 @@
+<app-upper-menu></app-upper-menu>
+
+<h3 class="text-center text-white mt-5 mb-3">Card Status</h3>
+<div class="container status-container">
+  <div class="row">
+    <div class="col-md-6 col-12 d-flex flex-column align-items-center justify-content-center">
+      <h3 *ngIf="card">{{card.title}}</h3>
+      <img [src]="card.images[0].image" *ngIf="card && card.images && card.images[0]" width="280" class="mb-4">
+    </div>
+    <div class="col-md-6 col-12">
+      <div class="row">
+        <div class="col-7">
+          <img src="assets/images/modal-lock.png" width="20px" class="mr-3 ml-2">
+          <span>Lock up SPND</span>
+        </div>
+        <div class="col-5 text-right text-success">
+          <i class="fa fa-check mr-2"></i>
+          <span>Complete</span>
+        </div>
+      </div>
+      <h6 class="text-uppercase mt-5 mb-3 text-grey">Spend Card<sup>TM</sup> Order Status</h6>
+      <div class="row">
+        <div class="col-7">
+          <img src="assets/images/card-settings/item2-white.png" height="40px" class="mr-3">
+          <span>Card Status</span>
+        </div>
+        <div class="col-5 text-right text-warning d-flex align-items-center justify-content-end">
+          <i class="fa fa-circle mr-2"></i>
+          <span>Processing</span>
+        </div>
+      </div>
+      <p class="text-grey text-sm mt-2">
+        Your card will arrive within 5-7 business days once shipped
+      </p>
+      <div class="text-center mt-5">
+        <button class="btn btn-primary text-uppercase px-5">Activate my card</button>
+      </div>
+    </div>
+  </div>
+</div>

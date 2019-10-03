@@ -1,0 +1,358 @@
+<app-upper-menu></app-upper-menu>
+
+<h3 *ngIf="page === 'loans' || (page === 'current' && !payoff)" class="text-center text-white mt-5 mb-3">Loans</h3>
+<h3 *ngIf="page === 'current' && payoff" class="text-center text-white mt-5 mb-3">Pay Off</h3>
+<div class="container loan-container" *ngIf="page === 'loans'">
+  <div class="loan-report">
+    <div class="available-loan">
+      <h4>$0.00</h4>
+      <h6>Available Loan Limit</h6>
+    </div>
+    <div class="current-loan">
+      <h4>$0.00</h4>
+      <h6>Current Loans</h6>
+    </div>
+  </div>
+  <div class="divider my-4"></div>
+  <div class="row">
+    <div class="col-lg-4 col-md-12">
+      <div class="clickable-item" (click)="goApply()">
+        <img src="assets/images/loan1.png" width="36" class="mr-3">
+        <div>
+          <h5>Apply For a Loan</h5>
+          <p>Get a new loan today</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <div class="clickable-item" (click)="page = 'current'">
+        <img src="assets/images/loan2.png" width="36" class="mr-3">
+        <div>
+          <h5>View Current Loans</h5>
+          <p>See all our oustanding loans</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-  12">
+      <div class="clickable-item">
+        <img src="assets/images/loan3.png" width="36" class="mr-3">
+        <div>
+          <h5>Crypto Loans</h5>
+          <p>Coming Soon</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container loan-apply-container" *ngIf="page === 'apply'">
+  <div class="step-section">
+    <div class="one-step" [class.active]="step === 1">
+      <div class="step-num">1</div>
+      <p>Loan Request</p>
+    </div>
+    <div class="step-line"></div>
+    <div class="one-step" [class.active]="step === 2">
+      <div class="step-num">2</div>
+      <p>Personal info</p>
+    </div>
+    <div class="step-line"></div>
+    <div class="one-step" [class.active]="step === 3">
+      <div class="step-num">3</div>
+      <p>Verification</p>
+    </div>
+    <div class="step-line"></div>
+    <div class="one-step" [class.active]="step === 4">
+      <div class="step-num">4</div>
+      <p>Receive funds</p>
+    </div>
+  </div>
+
+  <div class="loan-body-step1" *ngIf="step === 1">
+    <h4>How much are you trying to borrow?</h4>
+    <h6>Eg: $100-$100,000</h6>
+    <input type="text" class="form-control">
+    <div class="buttons">
+      <button class="btn btn-outline-primary btn-cancel" (click)="page = 'loans'">CANCEL</button>
+      <button class="btn btn-primary btn-next" (click)="goStep2()">NEXT</button>
+    </div>
+  </div>
+
+  <div class="loan-body-step2" *ngIf="step === 2">
+    <h4 class="text-center mt-5 mb-5">Resident & Employment Information</h4>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <select class="form-control">
+            <option value="" selected>Rent</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <select class="form-control">
+            <option value="" selected>Employment</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="Your Monthly Housing Payment">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="Your Annual Gross Income">
+        </div>
+      </div>
+    </div>
+    <div class="divider mt-3 mb-3"></div>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-md-12">
+          <input type="text" class="form-control" placeholder="Employer">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="Position">
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <input type="text" class="form-control" placeholder="Employer Phone Number">
+        </div>
+      </div>
+    </div>
+    <h6 class="text-center mt-3 mb-3">Time at job</h6>
+    <div class="row">
+      <div class="col-md-4 offset-md-4 col-sm-8 offset-sm-2">
+        <div class="row">
+          <div class="col-6">
+            <select class="form-control">
+              <option value="" selected>Month</option>
+            </select>
+          </div>
+          <div class="col-6">
+            <select class="form-control">
+              <option value="" selected>Year</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-5">
+      <div class="custom-control custom-checkbox text-left mb-2">
+        <input type="checkbox" class="custom-control-input" id="resident" name="resident" required>
+        <label class="custom-control-label" for="resident">By checking this box you are indicationg that you have read, consent to, and affix your electronic signature to the following five documents:</label>
+      </div>
+      <ul>
+        <li><a href="#">Electronic Transactions and Disclosures Consent</a></li>
+        <li><a href="#">Cross River Bank Privacy Notice, Credit Pull Authorization, RocketLoans Privacy Notice</a> and <a href="#">Terms of use</a></li>
+      </ul>
+    </div>
+    <div class="buttons text-center">
+      <button class="btn btn-primary btn-submit" (click)="goStep3()">SUBMIT</button>
+    </div>
+  </div>
+
+  <div class="loan-body-step3" *ngIf="step === 3">
+    <h4 class="text-center mt-5 mb-5">{{step3Title}}</h4>
+    <div class="col-12" *ngIf="step3Step === 1">
+      <div class="custom-control custom-checkbox text-left mb-2">
+        <input type="checkbox" class="custom-control-input" id="florida" name="florida">
+        <label class="custom-control-label" for="florida">Florida</label>
+      </div>
+      <div class="custom-control custom-checkbox text-left mb-2">
+        <input type="checkbox" class="custom-control-input" id="newyork" name="newyork">
+        <label class="custom-control-label" for="newyork">New York</label>
+      </div>
+      <div class="custom-control custom-checkbox text-left mb-2">
+        <input type="checkbox" class="custom-control-input" id="california" name="california">
+        <label class="custom-control-label" for="california">California</label>
+      </div>
+      <div class="custom-control custom-checkbox text-left mb-2">
+        <input type="checkbox" class="custom-control-input" id="maine" name="maine">
+        <label class="custom-control-label" for="maine">Maine</label>
+      </div>
+      <div class="custom-control custom-checkbox text-left mb-2">
+        <input type="checkbox" class="custom-control-input" id="none" name="none">
+        <label class="custom-control-label" for="none">None of the above</label>
+      </div>
+    </div>
+    <div class="col-12 text-center step3-step2" *ngIf="step3Step === 2">
+      <i class="fa fa-spinner fa-spin fa-fw"></i>
+      <p>Please wait while we process your application</p>
+    </div>
+    <div class="col-12 text-center step3-step3" *ngIf="step3Step === 3 && step3Verified">
+      <img src="assets/images/checkbox.png" width="70">
+      <p>Congratulations your loan has been approved. To complete your request we <br>need to verify some additional details. Click the next button below to continue.</p>
+    </div>
+    <div class="col-12 text-center step3-step3" *ngIf="step3Step === 3 && !step3Verified">
+      <img src="assets/images/failed.png" width="70">
+      <p>Your loan application has been denied. We have e-mailed you a <br>copy of the denial letter to the e-mail address on file.</p>
+    </div>
+    <div class="divider mt-5 mb-5"></div>
+    <div class="buttons text-center mb-5">
+      <button class="btn btn-primary btn-submit" (click)="submitStep3()" *ngIf="step3Step === 1">SUBMIT</button>
+      <button class="btn btn-primary btn-submit" (click)="goStep3Next()" *ngIf="step3Step === 3 && step3Verified">NEXT</button>
+      <button class="btn btn-primary btn-submit" *ngIf="step3Step === 3 && !step3Verified">OK</button>
+    </div>
+  </div>
+
+  <div class="loan-body-step4 text-center" *ngIf="step === 4">
+    <img src="assets/images/receive-funds.png" width="85" class="mt-4 mb-4">
+    <h4>Your loan is ready for use!</h4>
+    <h2 class="mt-4 mb-5">$10,000</h2>
+    <p>Has been deposited to your USD wallet. You may now use <br>these funds instantly on your Spend Visa Card.</p>
+    <div class="divider mt-5 mb-5"></div>
+    <div class="buttons text-center mb-5">
+      <button class="btn btn-primary btn-submit" (click)="finishApply()">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="container loan-current-container" *ngIf="page === 'current' && !payoff">
+  <div class="row">
+    <div class="col-md-4 col-12 items-section">
+      <div class="d-flex justify-content-between align-items-center list-item" (click)="selectItem(0)" [class.active]="selectedItem === 0">
+        <a>Active Loans</a>
+        <i class="fa fa-chevron-right"></i>
+      </div>
+      <div class="d-flex justify-content-between align-items-center list-item" (click)="selectItem(1)" [class.active]="selectedItem === 1">
+        <a>Closed Loans</a>
+        <i class="fa fa-chevron-right"></i>
+      </div>
+      <div class="d-flex justify-content-between align-items-center list-item" (click)="selectItem(2)" [class.active]="selectedItem === 2">
+        <a>Available Credit</a>
+        <i class="fa fa-chevron-right"></i>
+      </div>
+    </div>
+    <div class="col-md-8 col-12 card-section">
+      <div class="item-card d-flex justify-content-between align-items-center" (click)="showCurrentModal()">
+        <img src="assets/images/dash.png" width="35">
+        <div>
+          <p class="name">Starbucks</p>
+          <p class="date">Sept,20,2018 9:30 AM</p>
+        </div>
+        <div class="text-right">
+          <p class="price">$19.99 USD</p>
+          <p class="asset">0.003 BTC</p>
+        </div>
+      </div>
+      <div class="item-card d-flex justify-content-between align-items-center" (click)="showCurrentModal()">
+        <img src="assets/images/dash.png" width="35">
+        <div>
+          <p class="name">McDonald’s</p>
+          <p class="date">Sept,21,2018 4:30 PM</p>
+        </div>
+        <div class="text-right">
+          <p class="price">$16.99 USD</p>
+          <p class="asset">0.002 BTC</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container loan-payoff-container d-flex align-items-center flex-column justify-content-center" *ngIf="page === 'current' && payoff">
+  <h6>Please select the wallet you would like to pay off your loan with:</h6>
+  <hr>
+  <div class="my-4 text-center">
+    <p style="color: #a1a1a1;">Pay Off Amount:</p>
+    <h5>$21.61</h5>
+  </div>
+  <div class="select-box">
+    <div class="select d-flex justify-content-between align-items-center" (click)="showList()">
+      <span>Select the wallet</span>
+      <i class="fa fa-chevron-down" *ngIf="!showSelectList"></i>
+      <i class="fa fa-chevron-up" *ngIf="showSelectList"></i>
+    </div>
+    <div class="list" *ngIf="showSelectList">
+      <div class="d-flex align-items-center justify-content-between list-item">
+        <img src="assets/images/dash.png" width="25">
+        <span class="name">USD</span>
+        <span class="val">$18,939.98</span>
+      </div>
+      <div class="d-flex align-items-center justify-content-between list-item">
+        <img src="assets/images/dash.png" width="25">
+        <span class="name">BTC</span>
+        <span class="val">5.4938</span>
+      </div>
+      <div class="d-flex align-items-center justify-content-between list-item">
+        <img src="assets/images/dash.png" width="25">
+        <span class="name">ETH</span>
+        <span class="val">28.2741</span>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-5" (click)="completePayoff()">COMPLETE</button>
+</div>
+
+<ng-template class="modal" #template>
+  <div class="loan-modal-container d-flex">
+    <p>To Access these features<br>please verify your account</p>
+    <img src="assets/images/modal-lock.png" width="50" class="img-lock">
+    <button class="btn btn-primary" (click)="verify()">VERIFY NOW</button>
+    <img class="btn-close" src="assets/images/modal-close.png" width="30" (click)="closeModal()">
+  </div>
+</ng-template>
+
+<ng-template class="modal" #template1>
+  <div class="loan-current-modal-container d-flex flex-column align-items-center justify-content-center">
+    <img src="assets/images/dash.png" width="60">
+    <h4>Starbucks</h4>
+    <h5>$19.99 USD</h5>
+    <div class="row">
+      <div class="col-md-6 col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Date:</span>
+          <span class="val">Sep 20, 2018</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Time:</span>
+          <span class="val">9:30AM</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Loan Amount:</span>
+          <span class="val">$19.99</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">BTC Security:</span>
+          <span class="val">0.003 BTC</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Conversion Rate:</span>
+          <span class="val">$6,728.98</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Loan To Value:</span>
+          <span class="val">80%</span>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Interest Rate:</span>
+          <span class="val">4%</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Total Interest:</span>
+          <span class="val">$0.90</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Maturity Date:</span>
+          <span class="val">Oct 30, 2018</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Principal Balance:</span>
+          <span class="val">$19.99</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Accumulated Interest:</span>
+          <span class="val">$0.62</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="name">Fees:</span>
+          <span class="val">$0.50</span>
+        </div>
+      </div>
+    </div>
+    <p>Pay off Amount:</p>
+    <h5>$21.61</h5>
+    <button class="btn btn-primary" (click)="pay()">PAY OFF</button>
+  </div>
+</ng-template>

@@ -1,0 +1,148 @@
+<app-upper-menu></app-upper-menu>
+<div class="container pt-5">
+  <div class="row justify-content-center no-gutters">
+    <div class="col-auto position-relative" style="max-width: 100%">
+      <div class="row no-gutters">
+        <div class="col-sm-12">
+          <div id="chart-area">
+            <div class="assets-meter">
+              <div class="text-large font-weight-bold">$ {{formattedAmount(totalAssets)}}</div>
+              <div class="text-medium"> {{assetNumber}} Assets</div>
+            </div>         
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-5 mb-5">
+    <div class="container">
+      <div class="row text-center justify-content-between portfolio-items">
+        <div class="col-2 mt-auto">
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <div class="text-center">
+                <img class="img-fluid" src="assets/images/portfolio/icon1.png" width="30">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="text-light">24H Change</h5>
+            </div>
+            <div class="col-sm-12">
+              <h4 class="font-weight-bold" [style.color]="currencyChange > 0 ? 'white' : 'red'">$ {{currencyChange.toFixed(2)}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-divider"></div>
+        <div class="col-2 mt-auto">
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <div class="text-center">
+                <img class="img-fluid" src="assets/images/portfolio/icon2.png" width="30">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="text-light">Highest Balance</h5>
+            </div>
+            <div class="col-sm-12">
+              <h4 class="text-light font-weight-bold">$ {{formattedAmount(highestBalance)}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-divider"></div>
+        <div class="col-2 mt-auto">
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <div class="text-center">
+                <img class="img-fluid" src="assets/images/portfolio/icon3.png" width="30">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="text-light">Portfolio Age</h5>
+            </div>
+            <div class="col-sm-12">
+              <h4 class="text-light font-weight-bold">{{portfolioAge}} Days</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-divider"></div>
+        <div class="col-2 mt-auto">
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <div class="text-center">
+                <img class="img-fluid" src="assets/images/portfolio/icon4.png" width="30">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="text-light">Best 24H Asset</h5>
+            </div>
+            <div class="col-sm-12">
+              <h4 class="text-light font-weight-bold">$ {{maxGain}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-divider"></div>
+        <div class="col-2 mt-auto">
+          <div class="row">
+            <div class="col-sm-12 mb-3">
+              <div class="text-center">
+                <img class="img-fluid" src="assets/images/portfolio/icon5.png" width="30">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <h5 class="text-light">Worst 24H Asset</h5>
+            </div>
+            <div class="col-sm-12">
+              <h4 class="text-light font-weight-bold">$ {{minGain}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card container pt-3">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr class="text-primary font-weight-bold">
+              <th scope="col" class="text-capitalize font-weight-bold h2">Asset</th>
+              <th scope="col">Market Cap</th>
+              <th scope="col">24H Volume</th>
+              <th scope="col">24H Change</th>
+              <th scope="col">Balance</th>
+              <th scope="col">Value</th>
+              <th scope="col">Portfolio %</th>
+            </tr>
+          </thead>
+          <tbody class="text-secondary text-center">
+            <tr *ngFor="let wallet of displayWallets" (click)="onWalletSelect(wallet)">
+              <td class="w-25">
+                <div class="row mr-0 ml-0 text-lg-left text-sm-center">
+                  <div class="col-lg-5 col-12"><img [style.cursor]="'pointer'" (click)="onWalletSelect(wallet)" class="img-fluid" [src]="utilService.getColorIcon(wallet.symbolData)"></div>
+                  <div class="col-lg-7 col-12 pt-1">
+                    <div class="font-weight-bold text-dark">{{wallet.title}}</div>
+                    <div class="text-secondary">{{wallet.symbolData.price && wallet.symbolData.price.toFixed(4)}} USD</div>
+                  </div>
+                </div>
+              </td>
+              <td>{{formattedAmount(wallet.symbolData.marketCap)}}</td>
+              <td>{{formattedAmount(wallet.symbolData.volumeUsd24h)}}</td>
+              <td [style.color]="wallet.symbolData.percentChange24h > 0 ? 'green' : 'red'">{{wallet.symbolData.percentChange24h}}%</td>
+              <td>{{wallet.balanceFormatted}} {{wallet.symbol}}</td>
+              <td>{{formattedAmount(wallet.balanceCurrency)}}</td>
+              <td>{{portfolioPercentage(wallet.balanceCurrency)}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row text-center pt-2" *ngIf="showMore">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-primary" (click)="onShowMore()">Show More</button>
+        </div>
+      </div>
+      <div class="row text-center pt-2" *ngIf="!showMore">
+        <div class="col-sm-12">
+          <button type="button" class="btn btn-primary" (click)="onShowLess()">Show Less</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

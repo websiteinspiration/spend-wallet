@@ -1,0 +1,112 @@
+<ng-template class="modal" #template>
+
+  <div class="row modal-body center">
+    <div class="bg-modal-phone" #body>
+
+      <div class="image-holder">
+        <div class="modalImg">
+          <img src="assets/images/phone-change.png">
+        </div>
+      </div>
+
+
+      <button type="button" class="send-modal close" aria-label="Send" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div [style.display]="step==1?'block':'none' " id="phone-modal-body">
+
+        <div>
+
+          <div class="label">
+            Change phone number to:
+          </div>
+
+          <input mask="+0000000000000" type="text"
+                 placeholder="+0000000000000"
+                 required [(ngModel)]="model.newPhone">
+
+          <button type="button" class="btn btn-primary mb-3 pl-3 pr-3" (click)="moveToConfirmStep()">
+            Next
+          </button>
+        </div>
+
+
+      </div>
+      <div [style.display]="step==2?'block':'none' " id="phone2-modal-body">
+
+
+        <div>
+
+          <div class="label">
+            Your previous phone number:
+          </div>
+          <div class="old-phone">
+            {{oldPhone}}
+          </div>
+
+
+          <div class="new-phone">
+            <div class="label">
+              will be changed to:
+            </div>
+            <span *ngIf="model.newPhone.indexOf('1')!==0">
+               +{{model.newPhone}}
+            </span>
+            <span *ngIf="model.newPhone.indexOf('1')==0">
+               {{model.newPhone| mask: '+0 000 000 0000'}}
+            </span>
+          </div>
+
+          <button class="btn btn-primary mb-3 pl-3 pr-3" (click)="moveTo2FAStep()">
+            Confirm
+          </button>
+        </div>
+
+
+      </div>
+
+      <div [style.display]="step==3?'block':'none' " id="phone3-modal-body">
+
+        <div>
+
+          <div class="label">
+            Enter the code that was sent via SMS to your mobile number
+          </div>
+
+          <input [textMask]="{mask:mask,guide:false}" type="text" class="code2fa-txt" [(ngModel)]="model.code2fa"
+                 required>
+
+          <button class="btn btn-primary mb-3 pl-3 pr-3" (click)="moveToEnd()">
+            Ok
+          </button>
+        </div>
+
+
+      </div>
+
+
+      <div [style.display]="step==4?'block':'none' " id="phone4-modal-body">
+
+        <div>
+
+          <div class="label">
+            Your phone number <br> <span *ngIf="model.newPhone.indexOf('1')!==0">
+            +{{model.newPhone}}
+          </span><span class="your-phone" *ngIf="model.newPhone.indexOf('1')==0">
+              {{model.newPhone| mask: '+0 000 000 0000'}}
+          </span> <br> has now been verified
+          </div>
+
+          <button class="btn btn-primary" (click)="modalRef.hide()">
+            Ok
+          </button>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</ng-template>
+

@@ -1,0 +1,31 @@
+<ng-template class="modal" #template>
+  <div class="modal-body rounded">
+    <form (ngSubmit)="onSubmit(accountForm)" #accountForm="ngForm">
+      <ng-container *ngFor="let field of flow.format.fields">
+        <div class="form-group">
+          <label for="{{field.field}}">{{field.name}}</label>
+          <div [ngSwitch]="field.type">
+            <input *ngSwitchCase="'string'" [name]="field.field" [id]="field.field" [type]="getType(field.type)" class="form-control form-control-sm"
+              [(ngModel)]="account[field.field]" #{{field.field}}="ngModel" [required]="field.required">
+            <select *ngSwitchCase="'select'" [id]="field.field" [name]="field.field" class="form-control form-control-sm"
+              [(ngModel)]="account[field.field]" #{{field.field}}="ngModel" [required]="field.required">
+              <option *ngFor="let opt of field.options" [value]="opt.value">{{opt.name}}</option>
+            </select>
+            <p class="error" *ngIf="field.required && !account[field.field]">{{field.name}} is required.</p>
+          </div>
+        </div>
+      </ng-container>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary pr-5 pl-5" [disabled]="isFormSubmitted">
+          <span *ngIf="isSubmitted">
+            <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+          </span>
+          <span *ngIf="!isSubmitted">Submit</span>
+        </button>
+      </div>
+    </form>
+    <button type="button" class="exchange-modal close" aria-label="Send" (click)="modalRef.hide()">
+      <i class="fa fa-times-circle text-white" aria-hidden="true"></i>
+    </button>
+  </div>
+</ng-template>

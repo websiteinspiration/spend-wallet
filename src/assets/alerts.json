@@ -1,0 +1,4 @@
+{
+  "emailVerificationSuccess": { "message": "Your e-mail has been verified successfully!", "type": "success" },
+  "emailVerificationFailure": { "message": "It was not possible to verify your e-mail, please try again", "type": "error" }
+}

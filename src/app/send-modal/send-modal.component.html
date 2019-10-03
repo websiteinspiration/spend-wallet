@@ -1,0 +1,67 @@
+<ng-template class="modal" #template>
+  <div class="row modal-body center">
+    <div class="bg-modal-send">
+      <img class="modalImg" [src]="utilService.getColorIcon(selectedWalletData.symbolData)">
+      <button type="button" class="send-modal close" aria-label="Send" (click)="modalRef.hide()">
+        <i class="fa fa-times-circle text-white" aria-hidden="true"></i>
+      </button>
+      <div>
+        <span class="send-address">
+          <img src="assets/images/pencil.png">
+          <input class="noBorder" type="text" [(ngModel)]="model.address" [placeholder]="'Send to ' + selectedSymbolData.title +' address'"
+            name="" [class.error]="errors.address" id="wallet-address">
+        </span>
+        <div class="extra-field-holder" *ngIf="selectedSymbolData.extra.fieldName">
+          <input class="extra" [class.extra-icon]="!model.extra" type="text" [(ngModel)]="model.extra" [placeholder]="selectedSymbolData.extra.fieldName"
+            [class.error]="errors.extra" id="wallet-address-extra" />
+        </div>
+      </div>
+      <div class="currency-fields">
+        <button (click)="all()" class="pull-left all-button" [style.background-color]="selectedSymbolData.color">
+          all
+        </button>
+        <div class="pull-right">
+          <div class="crypto modalSpanGreen">
+            <input type="text" [(ngModel)]="model.amount" mask="0*.00*" [dropSpecialCharacters]="false" [style.color]="selectedSymbolData.color"
+              [class.error]="errors.amount" class="noBorder" placeholder="0.00" name="coin" id="coin-amount"><span
+              [style.color]="selectedSymbolData.color">{{selectedSymbolData.symbol}}</span>
+          </div>
+          <div class="fiat">
+            <input [value]="getUSD() | number :'1.0-2'" readonly class="noBorder" placeholder="0.00" type="text" name="USD"><span>USD</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-1 mb-1">
+        <button class="btn btn-primary" (click)="send()" *ngIf="!sending">
+          Send
+        </button>
+        <button class="btn btn-primary spinner" *ngIf="sending">
+          Send <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer noBackground">
+    <div class="container text-secondary font-size-small text-sm-left text-center">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">{{selectedSymbolData.title}} Network Fee</div>
+            <div class="col-sm-4 font-weight-bold" [style.color]="selectedSymbolData.color">{{selectedSymbolData.feeFormatted}}</div>
+            <div class="col-sm-4">{{selectedSymbolData.feeCurrencyFormatted}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-4">Remaining Balance</div>
+            <div class="col-sm-4 font-weight-bold" [style.color]="selectedSymbolData.color">{{remaining() | currency}}
+              {{selectedSymbolData.symbol}}</div>
+            <div class="col-sm-4"> ${{remainingUSD() | currency}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

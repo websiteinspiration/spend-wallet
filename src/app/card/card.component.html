@@ -1,0 +1,109 @@
+<app-upper-menu></app-upper-menu>
+<div class="card-wrapper pt-5 pb-5" *ngIf="loadPage">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2 class="card-title">Manage Spend Card</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-5 col-lg-3 pt-2 mb-5 card-list text-body">
+        <ul>
+          <li>
+            <img src="/assets/images/locked.png" class="img-responsive img-fluid">
+            <button class="btn btn-link white" (click)="lockCard()">{{selectedCard && selectedCard.locked ? 'UNLOCK' : 'LOCK'}}
+              THE CARD</button>
+          </li>
+          <li>
+            <img src="/assets/images/grouped.png">
+            <button class="btn btn-link white" (click)="changePin()">CHANGE PIN</button>
+          </li>
+          <li>
+            <img src="/assets/images/views.png">
+            <button class="btn btn-link white">VIEW LIMITS</button>
+          </li>
+        </ul>
+        <div class="mb-2">
+          <swal #activateCardAlert title="Type your reference" confirmButtonClass="swal-button" [showLoaderOnConfirm]="true"
+            (confirm)="activateCard()" (cancel)="cancelactivateCard()">
+            <div *swalPartial>
+              <input type="text" class="form-control" mask="999-999-999" class="swal2-input" [(ngModel)]="referenceValue"
+                style="text-align: center" />
+            </div>
+          </swal>
+          <button *ngIf="imgSrc" class="btn btn-light btn-custom btn-block" routerLink="/activate/card">Activate New Card</button>
+        </div>
+        <div>
+          <button *ngIf="!imgSrc" class="btn btn-light btn-custom btn-block" (click)="addVirtualCard()">Add Virtual Card</button>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-7 col-lg-4 mb-5 card-img-div">
+        <div class="container card-img-wrapper text-center">
+          <img *ngIf="imgSrc" class="img-fluid big-rounded" [src]="imgSrc">
+          <h3 *ngIf="!imgSrc" class="no-active-card">No active cards</h3>
+          <div *ngIf="imgSrc" class="card-number">{{selectedCard.number}}</div>
+          <div *ngIf="imgSrc" class="card-expiredate">EXP: {{getFormattedDate()}}</div>
+          <div *ngIf="imgSrc" class="card-name">{{userName}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-5 card-credit-list">
+        <div class="row table-responsive text-white">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><span>Card Status</span></th>
+              </tr>
+            </thead>
+          </table>
+          <perfect-scrollbar style="max-height: 180px;">
+            <table class="table table-hover">
+              <tbody class="font-weight-bold">
+                <tr *ngFor="let card of cards" [ngStyle]="{'background-color': card.color}">
+                  <td>
+                    <label class="switch">
+                      <input type="checkbox" [checked]="card.locked" [disabled]="lockingCard" (change)="changeStatus(card, $event)">
+                      <span class="slider round"></span>
+                    </label>
+                    <span class="pl-1">{{card.locked ? 'Locked' : 'Unlocked' }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 mb-3">
+      <div class="col-lg-12">
+        <div class="card">
+          <h2 class="card-title black">History</h2>
+          <div class="card-body table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"><span>Date</span></th>
+                  <th scope="col"><span>Merchant</span></th>
+                  <th scope="col"><span>Amount</span></th>
+                  <th scope="col"><span>Currency Used</span></th>
+                  <th scope="col"><span>Conversion Rate</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let transaction of transactions">
+                  <td><span>{{transaction.updated_at}}</span></td>
+                  <td><span>{{transaction.merchant}}</span></td>
+                  <td><span>{{transaction.amount}}</span></td>
+                  <td><span>{{transaction.currency}}</span></td>
+                  <td><span>{{transaction.transaction && transaction.transaction.asset ? (1 + transaction.transaction.asset.symbol + ' = ') : ''}}{{transaction.conversion_rate | currency}}</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="!transactions || transactions.length <= 0" class="offset-5">
+              No Transaction available
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

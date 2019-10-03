@@ -1,0 +1,107 @@
+<app-upper-menu></app-upper-menu>
+<div class="container">
+  <div class="row mt-5 pt-5 justify-content-center">
+    <div class="col-sm-4">
+      <img class="img-fluid" src="/assets/images/order-card/spend_card.png">
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 h4 text-center">
+      Accepted at over 40+ Million locations Worldwide
+    </div>
+  </div>
+  <div class="row mt-5 mb-3 justify-content-around">
+    <ng-container *ngFor="let card of cards; let i = index;">
+      <div class="col-md-4 mt-md-0 mt-5 text-center">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <img class="img-fluid" [src]="getImage(card.images)">
+          </div>
+          <div class="col-6 shadow">&nbsp;</div>
+        </div>
+        <div class="row mt-5 mb-4 justify-content-center">
+          <div class="col-sm-9">
+            <img class="img-fluid card-logo" [src]="cardDetails[i] && cardDetails[i].image">
+          </div>
+        </div>
+        <div class="row mt-3 position-relative">
+          <div class="col-12 text-muted">
+            <div class="card desc-card pb-5" [style.border-top-color]="cardDetails[i] && cardDetails[i].color">
+              {{cardDetails[i] && cardDetails[i].description}}
+            </div>
+          </div>
+          <div class="limit-circle position-absolute text-white" [style.background-color]="cardDetails[i] && cardDetails[i].color">
+            <div class="inner-text">
+              <span class="amount">{{checkIfHasSymbol(getDailyLimit(card)) ? getDailyLimit(card) : getDailyLimit(card) | currency:'USD' : 'symbol' : '1.0'}}</span><sup *ngIf="!checkIfHasSymbol(getDailyLimit(card))">*</sup>
+              <br>
+              <span>Daily Limit</span>
+            </div>
+          </div>
+        </div>
+        <div class="row" [style.margin-top]="'8rem'">
+          <div class="col-12">
+            <div class="card position-relative">
+              <div class="card-body">
+                <div class="row mt-4 details-row">
+                  <ng-container *ngFor="let detail of card.details">
+                    <div class="col-12">
+                      <div class="row text-left mb-3" *ngIf="detail.type === 'feature'">
+                        <div class="col-1 pr-1"><i class="far fa-check-circle text-primary fa-2"></i></div>
+                        <div class="col-11 text-muted">{{detail.title ? detail.title + ' - ' + detail.detail : detail.detail}}</div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12 h4 text-center font-weight-bolder">{{card.fee | currency}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-12 text-center">Membership Fee</div>
+                </div>
+                <ng-container *ngIf="card.reserve_amount">
+                  <div class="row mt-5">
+                    <div class="col-12 h4 text-center font-weight-bolder">{{card.reserve_amount}} {{card.reserve_asset}}</div>
+                  </div>
+                  <div class="row mb-2">
+                    <div class="col-12 text-center">
+                      <i class="fa fa-lock text-primary"></i> Hold Amount For {{card.reserve_period_factor}} {{getCapitalize(card.reserve_period)}}
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="order-btn position-absolute">
+                <button type="button" class="btn btn-primary text-uppercase" (click)="onOrder(card, i)">Order Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div *ngIf="!cards" class="row mt-5 mb-4">
+      <div class="col-12 text-center">No cards available for your region, Please check back soon.</div>
+    </div>
+    <div *ngIf="cards" class="row mt-5 mb-4">
+      <div class="col-12 text-center">*Subject to availability, verification & approval</div>
+    </div>
+  </div>
+</div>
+
+<div class="dialog-background" *ngIf="showOrderDialog">
+  <div class="card-order-dialog position-relative d-flex flex-column align-items-center justify-content-between px-4">
+    <img class="position-absolute card-icon" src="assets/images/card-settings/item2-blue.png" width="90">
+    <hr class="first-line">
+    <img [src]="cardDetails[selectedIndex] && cardDetails[selectedIndex].image" height="28">
+    <div class="row mt-4">
+      <div class="col-md-6 col-12 text-center">
+        <img [src]="getImage(selectedCard.images)" width="200" class="card-image mb-3">
+      </div>
+      <div class="col-md-6 col-12 text-lg">You are about to order your Spend Blue Card for $10 and a lock of 100 SPND tokens.</div>
+    </div>
+    <hr>
+    <div class="d-flex align-items-center justify-content-center pb-3">
+      <button class="btn text-uppercase btn-secondary btn-cancel mr-2" (click)="close()">Cancel</button>
+      <button class="btn text-uppercase btn-primary ml-2" (click)="next()">Next</button>
+    </div>
+    <img class="btn-close" (click)="close()" src="assets/images/modal-close.png" width="40">
+  </div>
+</div>

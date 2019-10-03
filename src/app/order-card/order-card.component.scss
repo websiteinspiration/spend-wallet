@@ -1,0 +1,149 @@
+.shadow {
+  -webkit-box-shadow: 0px 31px 27px -15px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 31px 27px -15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 31px 27px -15px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary {
+  border-radius: 20px;
+  width: 9rem;
+}
+
+.desc-card {
+  border-top: 15px solid black;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 20px 40px;
+}
+
+.limit-circle {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  bottom: -7rem;
+  left: calc((100% - 150px) / 2);
+  .inner-text {
+    transform: translate(2%, 82%);
+  }
+  .amount {
+    font-size: 1.4rem;
+    font-weight: 900;
+  }
+}
+
+.order-btn {
+  bottom: -3%;
+  width: 144px;
+  left: calc((100% - 144px) / 2);
+}
+
+.font-weight-bolder {
+  font-weight: 900;
+}
+
+.card-logo {
+  height: 2rem;
+}
+
+.details-row {
+  flex-direction: column;
+}
+
+sup {
+  font-size: 24px;
+  top: 0;
+}
+
+@media (max-width: 767.98px) {
+  .details-row {
+    min-height: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .details-row {
+    min-height: 570px;
+  }
+  .order-btn {
+    left: 15%;
+  }
+  .limit-circle {
+    left: 19%;
+  }
+  .desc-card {
+    min-height: 400px;
+  }
+}
+
+@media (min-width: 992px) {
+  .details-row {
+    min-height: 250px;
+  }
+}
+
+.dialog-background {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1030;
+  background-color: rgba(31, 37, 52, .9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card-order-dialog {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 20px 34.6px 40px 0 rgba(1, 2, 2, 0.52);
+    background-color: #f2f2f2;
+  }
+
+  hr {
+    width: 100%;
+  }
+
+  .card-icon {
+    top: -45px;
+    margin-bottom: 60px;
+  }
+
+  .first-line {
+    margin-top: 60px;
+  }
+
+  .card-image {
+    max-width: 250px;
+    width: 100%;
+    box-shadow: 2px 3.5px 18px 0 rgba(0, 0, 4, 0.5);
+    border-radius: 10px;
+  }
+
+  .text-lg {
+    font-size: 24px;
+  }
+
+  .btn-close {
+    position: absolute;
+    top: 0px;
+    right: -50px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+  }
+
+  .btn-cancel {
+    width: 120px;
+    border-radius: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dialog-background {
+    .btn-close {
+      top: -50px;
+      right: 0;
+    }
+  }
+}

@@ -1,0 +1,110 @@
+.modal {
+  height: 100%;
+  width: 50%;
+
+}
+
+.bg-modal-phone {
+  background-color: rgba(242, 242, 242, 1);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.send-modal.close {
+  position: absolute;
+  right: -25px;
+  top: 2px;
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 0px 5px 3px 5px;
+  color: white;
+  opacity: 0.5;
+}
+
+.modal-dialog {
+  margin-top: 20vh !important;
+}
+
+.image-holder {
+  text-align: center;
+}
+
+.modalImg {
+  margin-top: -50px;
+  height: 100px;
+  width: 100px;
+  background-color: #7BA750;
+  border-radius: 50%;
+  display: inline-grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.modalImg img {
+  width: 50px;
+}
+
+.modal-body {
+  padding-top: 0;
+  padding-bottom: 0px;
+}
+
+.bg-modal-phone {
+  text-align: center;
+}
+
+#step1-modal-body img, #step2-modal-body img {
+  width: 130px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#step1-modal-body p, #step2-modal-body p, #step3-modal-body p {
+  font-size: 25px;
+  white-space: normal;
+  width: 80%;
+  margin: 5px auto 20px auto;
+  line-height: 1.1em;
+}
+
+#step2-modal-body img {
+  border: 7px solid black;
+  margin-top: 20px;
+  width: 150px;
+}
+
+#step3-modal-body {
+  padding-top: 30px;
+}
+
+.code2fa-txt {
+  letter-spacing: 15px;
+  font-size: 45px;
+  width: 100%;
+  border: none;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.last-massage {
+  margin-top: 60px;
+  font-size: 30px;
+  font-weight: bolder;
+
+  display: inline-flex;
+  align-items: center;
+  justify-items: center;
+
+}
+
+.last-massage .fa {
+  font-size: 75px;
+  color: #7BA750;
+  font-weight: 100;
+  margin-right: 20px;
+}
+
+hr {
+  border-color: rgba(0, 0, 0, .3);
+  width: 75%;
+}

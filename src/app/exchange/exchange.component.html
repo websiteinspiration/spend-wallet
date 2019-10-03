@@ -1,0 +1,148 @@
+<app-upper-menu></app-upper-menu>
+<div class="container pt-5">
+  <div class="row no-gutters justify-content-center">
+    <div class="col-lg-4 col-md-5 pt-2 text-center text-md-right">
+      <div class="h4 text-white">Exchange</div>
+      <div class="btn-group mt-3">
+        <div class="dropdown-toggle exchange-dropdown text-white" data-flip="true" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" [style.border-color]="exchangeWallet.color">
+          <div class="dropdown-data row no-gutters">
+            <div class="col-2 text-center pt-3"><i class="fa fa-chevron-down"></i></div>
+            <div class="col-10">
+              <div class="row mt-1 mb-1">
+                <div class="col-12 text-medium font-weight-bold">{{exchangeWallet.title}}</div>
+                <div class="col-12 text-small">Available {{exchangeWallet.balanceFormatted}} {{exchangeWallet.symbol}}</div>
+              </div>
+            </div>
+          </div>
+          <img class="symbol-icon" [src]="utilService.getColorIcon(exchangeWallet.symbolData)">
+        </div>
+        <div class="dropdown-menu exchange-dropdown">
+          <perfect-scrollbar class="scroll-bar">
+            <ng-container *ngFor="let wallet of wallets">
+              <div *ngIf="checkTicker(wallet)" class="dropdown-item text-white" (click)="onExchangeWallet(wallet)"
+                [ngClass]="{'disabled': wallet.symbol === receiveWallet.symbol }">
+                <div class="row">
+                  <div class="col-3">
+                    <img class="img-fluid" [src]="utilService.getColorIcon(wallet.symbolData)">
+                  </div>
+                  <div class="col-9 text-medium pt-2 font-weight-bold">{{wallet.title}}</div>
+                </div>
+              </div>
+            </ng-container>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 pt-md-0 pt-5">
+      <div class="position-relative exchange-icon">
+        <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.3 286.9">
+          <path [style.fill]="receiveWallet.color" d="M155 135.1L155 135.1l-7.7 0h-7 -3.1c-0.2 0-0.3 0-0.5 0h-30.2v-32.9c0-3.8-2.3-7.3-5.9-8.8s-7.6-0.7-10.4 2.1l-84 84c-1.8 1.8-2.8 4.2-2.8 6.7s1 4.9 2.8 6.7l88.4 88.4c1.8 1.8 4.2 2.8 6.7 2.8 1.2 0 2.5-0.2 3.6-0.7 3.5-1.5 5.9-4.9 5.9-8.8V233h89.8c5.2 0 9.5-4.3 9.5-9.5s-4.3-9.5-9.5-9.5h-99.3c-5.2 0-9.5 4.3-9.5 9.5v28.2l-65.4-65.4 61.1-61.1v19.4c0 5.2 4.3 9.5 9.5 9.5h42.1 27.2 7.7l0 0L155 135.1z" />
+        </svg>
+        <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.33 286.9">
+          <path [style.fill]="exchangeWallet.color" d="M324,96.22,235.58,7.84a9.49,9.49,0,0,0-16.21,6.72V56.19H129.52a9.5,9.5,0,0,0,0,19h99.35a9.51,9.51,0,0,0,9.5-9.5V37.49l65.45,65.45L242.75,164V144.57a9.5,9.5,0,0,0-9.5-9.5H155l0,0,19,19,0,0h19.09c.16,0,.31,0,.47,0h30.21v32.87a9.5,9.5,0,0,0,5.86,8.78,9.64,9.64,0,0,0,3.64.72,9.49,9.49,0,0,0,6.72-2.78l84-84a9.51,9.51,0,0,0,0-13.44Z" />
+        </svg>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-5 pt-md-2 pt-5 text-center text-md-left">
+      <div class="h4 text-white">Receive</div>
+      <div class="btn-group mt-3">
+        <div class="dropdown-toggle receive-dropdown text-white" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" [style.border-color]="receiveWallet.color">
+          <div class="dropdown-data row no-gutters">
+            <div class="col-10">
+              <div class="row mt-1 mb-1">
+                <div class="col-12 text-medium font-weight-bold">{{receiveWallet.title}}</div>
+                <div *ngIf="getExchangeRate(); else notavailable" class="col-12 text-small">1
+                  {{exchangeWallet.symbol}} = {{getExchangeRate()}}
+                  {{receiveWallet.symbol}}</div>
+                <ng-template #notavailable>
+                  <div class="col-12 text-small">Not Available</div>
+                </ng-template>
+              </div>
+            </div>
+            <div class="col-2 text-center pt-3"><i class="fa fa-chevron-down"></i></div>
+          </div>
+          <img class="symbol-icon" [src]="utilService.getColorIcon(receiveWallet.symbolData)">
+        </div>
+        <div class="dropdown-menu receive-dropdown">
+          <perfect-scrollbar class="scroll-bar">
+            <ng-container *ngFor="let wallet of wallets">
+              <div *ngIf="checkTicker(wallet)" class="dropdown-item text-white" (click)="onReceiveWallet(wallet)"
+                [ngClass]="{'disabled': wallet.symbol === exchangeWallet.symbol }">
+                <div class="row">
+                  <div class="col-3">
+                    <img class="img-fluid" [src]="utilService.getColorIcon(wallet.symbolData)">
+                  </div>
+                  <div class="col-9 text-medium pt-2 font-weight-bold">{{wallet.title}}</div>
+                </div>
+              </div>
+            </ng-container>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5 justify-content-center">
+    <div class="col-md-8">
+      <div class="card p-0">
+        <div class="card-title pt-4">
+          <div class="row no-gutters justify-content-between">
+            <div class="col-md-5 text-center text-md-right text-medium font-weight-bold">You are exchanging</div>
+            <div class="col-md-5 text-center text-md-left text-medium font-weight-bold">You will receive</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row justify-content-center">
+            <div class="col-10 pl-2 pr-2 pb-4 pt-4 exchange-box">
+              <div class="row no-gutters">
+                <div class="col-md-5">
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 position-relative" [style.color]="exchangeWallet.color">
+                      <input type="text" mask="0*.0000" id="exchangeAmount" name="exchangeAmount"
+                        [dropSpecialCharacters]="false" [(ngModel)]="exchangeAmount" (click)="onexchangeAmount()"
+                        [style.color]="exchangeWallet.color" class="exchange-input font-weight-bold">
+                      <span class="font-weight-bold position-absolute input-symbol">{{exchangeWallet.symbol}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 pt-md-0 pt-5">
+                  <div class="position-relative exchange-icon box">
+                    <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.3 286.9">
+                      <path [style.fill]="receiveWallet.color" d="M155 135.1L155 135.1l-7.7 0h-7 -3.1c-0.2 0-0.3 0-0.5 0h-30.2v-32.9c0-3.8-2.3-7.3-5.9-8.8s-7.6-0.7-10.4 2.1l-84 84c-1.8 1.8-2.8 4.2-2.8 6.7s1 4.9 2.8 6.7l88.4 88.4c1.8 1.8 4.2 2.8 6.7 2.8 1.2 0 2.5-0.2 3.6-0.7 3.5-1.5 5.9-4.9 5.9-8.8V233h89.8c5.2 0 9.5-4.3 9.5-9.5s-4.3-9.5-9.5-9.5h-99.3c-5.2 0-9.5 4.3-9.5 9.5v28.2l-65.4-65.4 61.1-61.1v19.4c0 5.2 4.3 9.5 9.5 9.5h42.1 27.2 7.7l0 0L155 135.1z" />
+                    </svg>
+                    <svg class="position-absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 331.33 286.9">
+                      <path [style.fill]="exchangeWallet.color" d="M324,96.22,235.58,7.84a9.49,9.49,0,0,0-16.21,6.72V56.19H129.52a9.5,9.5,0,0,0,0,19h99.35a9.51,9.51,0,0,0,9.5-9.5V37.49l65.45,65.45L242.75,164V144.57a9.5,9.5,0,0,0-9.5-9.5H155l0,0,19,19,0,0h19.09c.16,0,.31,0,.47,0h30.21v32.87a9.5,9.5,0,0,0,5.86,8.78,9.64,9.64,0,0,0,3.64.72,9.49,9.49,0,0,0,6.72-2.78l84-84a9.51,9.51,0,0,0,0-13.44Z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="col-md-5 pt-md-0 pt-5">
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 position-relative" [style.color]="receiveWallet.color">
+                      <input type="text" mask="0*.0000" id="receiveAmount" name="receiveAmount" [dropSpecialCharacters]="false"
+                        [value]="getReceiveValue()" [style.color]="receiveWallet.color" class="exchange-input font-weight-bold"
+                        disabled>
+                      <span class="font-weight-bold position-absolute input-symbol">{{receiveWallet.symbol}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-primary pl-5 pr-5" (click)="onExchange()" [disabled]="!isExchangeable()">
+                <span *ngIf="isSubmitted">
+                  <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+                </span>
+                <span *ngIf="!isSubmitted" class="text-uppercase">exchange</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-exchange-modal [exchangeAmount]="exchangeAmount" [quote]="quote" (submitted)="onExchangeDone($event)"
+  #exchangeModal></app-exchange-modal>

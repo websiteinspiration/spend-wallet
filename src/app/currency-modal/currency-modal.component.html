@@ -1,0 +1,352 @@
+<ng-template class="modal" #modal>
+  <ng-container [ngSwitch]="step">
+    <div class="modal-body rounded">
+      <ng-container *ngSwitchCase="1">
+        <ng-container *ngTemplateOutlet="selectOption"></ng-container>
+      </ng-container>
+      <ng-container *ngSwitchCase="2">
+        <ng-container *ngTemplateOutlet="paymentOption"></ng-container>
+      </ng-container>
+      <div *ngSwitchCase="3">
+        <ng-container *ngTemplateOutlet="amountScreen"></ng-container>
+      </div>
+      <div *ngSwitchCase="4">
+        <ng-container *ngTemplateOutlet="confirmation"></ng-container>
+      </div>
+      <div *ngSwitchCase="5">
+        <ng-container *ngIf="response.status; else error">
+          <ng-container *ngTemplateOutlet="success"></ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <ng-container *ngSwitchCase="3">
+      <ng-container *ngTemplateOutlet="footer"></ng-container>
+    </ng-container>
+  </ng-container>
+  <button type="button" class="exchange-modal close" aria-label="Send" (click)="closeModal()">
+    <i class="fa fa-times-circle text-white" aria-hidden="true"></i>
+  </button>
+</ng-template>
+
+<ng-template #selectOption>
+  <ng-container *ngIf="type === 'withdraw'">
+    <div class="row mt-4 no-gutters">
+      <div class="col-4 mt-2 divider"></div>
+      <div class="col-4 text-center text-secondary h4">Send</div>
+      <div class="col-4 mt-2 divider"></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12 text-center">
+        <div class="row no-gutters">
+          <div class="col-12">
+            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.4 106.37" id="other" (click)="onOption(other.id)"
+              (mouseover)="onBtnHover('over', other)" (mouseleave)="onBtnHover('leave', other)" #other>
+              <path d="M54.54,102.58A49.57,49.57,0,1,1,104.11,53,49.62,49.62,0,0,1,54.54,102.58ZM54.54,8a45,45,0,1,0,45,45A45,45,0,0,0,54.54,8Z" />
+              <path d="M54.54,38.94c-4.06,0-7.36-4-7.36-8.86s3.3-8.86,7.36-8.86,7.37,4,7.37,8.86S58.6,38.94,54.54,38.94Zm0-15.08c-2.6,0-4.72,2.79-4.72,6.22s2.12,6.22,4.72,6.22,4.73-2.79,4.73-6.22S57.15,23.86,54.54,23.86Z" />
+              <path d="M61.83,66a1.33,1.33,0,0,1-1.23-.84,1.31,1.31,0,0,1,.74-1.71,8.14,8.14,0,0,0,5.17-7.61V51.38a8.19,8.19,0,0,0-8.18-8.18H50.76a8.19,8.19,0,0,0-8.19,8.18v4.43a8.13,8.13,0,0,0,5.18,7.61,1.32,1.32,0,1,1-1,2.45,10.76,10.76,0,0,1-6.84-10.06V51.38A10.84,10.84,0,0,1,50.76,40.56h7.57A10.83,10.83,0,0,1,69.15,51.38v4.43a10.75,10.75,0,0,1-6.84,10.06A1.18,1.18,0,0,1,61.83,66Z" />
+              <path d="M54.54,83.34A1.32,1.32,0,0,1,53.22,82V64.65a1.32,1.32,0,1,1,2.64,0V82A1.32,1.32,0,0,1,54.54,83.34Z" />
+              <path d="M51.26,84.8A7.44,7.44,0,0,1,46.62,83a1.31,1.31,0,0,1-.46-1V49.91a1.32,1.32,0,0,1,2.64,0V81.36a3.64,3.64,0,0,0,4.81-.27,1.33,1.33,0,0,1,1.87,0,3.64,3.64,0,0,0,4.81.27V49.91a1.32,1.32,0,0,1,2.64,0V82a1.31,1.31,0,0,1-.46,1c-1.48,1.28-4.87,2.88-7.93.73A5.61,5.61,0,0,1,51.26,84.8Z" />
+            </svg>
+          </div>
+          <div class="col-12 pt-1 text-center text-extra-small">Username/Phone Number</div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div class="row mt-4 no-gutters">
+    <div class="col-4 mt-2 divider"></div>
+    <div class="col-4 text-center text-secondary text-capitalize h4">{{type}}</div>
+    <div class="col-4 mt-2 divider"></div>
+  </div>
+  <div class="row mt-2 justify-content-center text-center">
+    <div class="col-auto" *ngIf="isService('ach')">
+      <div class="row no-gutters">
+        <div class="col-12">
+          <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.4 106.37" id="ach" (click)="onOption(ach.id)"
+            (mouseover)="onBtnHover('over', ach)" (mouseleave)="onBtnHover('leave', ach)" #ach>
+            <path d="M54.71,102.31a49.57,49.57,0,1,1,49.57-49.57A49.63,49.63,0,0,1,54.71,102.31Zm0-94.57a45,45,0,1,0,45,45A45.05,45.05,0,0,0,54.71,7.74Z" />
+            <path d="M85,38.23H24.41a1,1,0,0,1-.56-1.82l30.3-20.69a1,1,0,0,1,1.12,0l30.3,20.69A1,1,0,0,1,86,37.53,1,1,0,0,1,85,38.23Zm-57.38-2H81.79L54.71,17.74Z" />
+            <path d="M82.69,43h-56a1,1,0,0,1-1-1v-4.8a1,1,0,1,1,2,0V41h54v-3.8a1,1,0,1,1,2,0V42A1,1,0,0,1,82.69,43Z" />
+            <path d="M30.54,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,30.54,74.16Z" />
+            <path d="M78.89,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,78.89,74.16Z" />
+            <path d="M38.15,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,38.15,74.16Z" />
+            <path d="M71.27,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,71.27,74.16Z" />
+            <path d="M82.69,80h-56a1,1,0,0,1-1-1V73.17a1,1,0,0,1,1-1h56a1,1,0,0,1,1,1V79A1,1,0,0,1,82.69,80Zm-55-2h54V74.16h-54Z" />
+            <path d="M44.61,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,44.61,74.16Z" />
+            <path d="M64.81,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,64.81,74.16Z" />
+            <path d="M51.77,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,51.77,74.16Z" />
+            <path d="M57.65,74.16a1,1,0,0,1-1-1V42a1,1,0,1,1,2,0V73.17A1,1,0,0,1,57.65,74.16Z" />
+          </svg>
+        </div>
+        <div class="col-12 pt-1 text-center text-extra-small">Bank/ACH</div>
+      </div>
+    </div>
+    <div class="col-auto" *ngIf="isService('wire')">
+      <div class="row no-gutters">
+        <div class="col-12">
+          <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.4 106.37" id="wire" (click)="onOption(wire.id)"
+            (mouseover)="onBtnHover('over', wire)" (mouseleave)="onBtnHover('leave', wire)" #wire>
+            <path d="M55.33,102.31A49.57,49.57,0,1,1,104.9,52.74,49.62,49.62,0,0,1,55.33,102.31Zm0-94.57a45,45,0,1,0,45,45A45,45,0,0,0,55.33,7.74Z" />
+            <path d="M31.28,61.56a3.73,3.73,0,1,1,3.49-2.41A3.74,3.74,0,0,1,31.28,61.56Zm0-5.47a1.74,1.74,0,1,0,1.63,2.36,1.88,1.88,0,0,0,.11-.62A1.74,1.74,0,0,0,31.28,56.09Z" />
+            <path d="M43.11,63.32a1,1,0,0,1-.35-.06l-9.28-3.53a1,1,0,0,1,.71-1.86l9.27,3.53a1,1,0,0,1-.35,1.92Z" />
+            <path d="M45.67,67a3.73,3.73,0,0,1-3.73-3.73,3.71,3.71,0,0,1,3.73-3.73,3.69,3.69,0,0,1,2,.56h0a3.73,3.73,0,0,1-2,6.9Zm0-5.47A1.76,1.76,0,0,0,44,62.68a1.88,1.88,0,0,0-.11.62,1.74,1.74,0,1,0,1.74-1.74Z" />
+            <path d="M47.11,62a1,1,0,0,1-.52-.15,1,1,0,0,1-.32-1.37l9.28-14.87a1,1,0,1,1,1.68,1.05L48,61.5A1,1,0,0,1,47.11,62Z" />
+            <path d="M57.84,47.51a3.73,3.73,0,1,1,3.73-3.73,3.74,3.74,0,0,1-3.73,3.73Zm0-5.47a1.75,1.75,0,0,0-1.75,1.74,1.72,1.72,0,0,0,.83,1.48A1.75,1.75,0,0,0,59,45a1.69,1.69,0,0,0,.54-1.25A1.74,1.74,0,0,0,57.84,42Z" />
+            <path d="M65.89,53.11a1,1,0,0,1-.71-.3L59,46.44a1,1,0,1,1,1.43-1.38l6.16,6.37a1,1,0,0,1,0,1.4A1,1,0,0,1,65.89,53.11Z" />
+            <path d="M67.79,57.81a3.73,3.73,0,1,1,3.73-3.73A3.74,3.74,0,0,1,67.79,57.81Zm0-5.47a1.77,1.77,0,0,0-1.21.49,1.75,1.75,0,0,0,1.21,3,1.75,1.75,0,1,0,0-3.49Z" />
+            <path d="M69.43,52.89a1,1,0,0,1-.59-.2,1,1,0,0,1-.2-1.39L80.93,34.88a1,1,0,1,1,1.59,1.19L70.23,52.49A1,1,0,0,1,69.43,52.89Z" />
+            <path d="M82.11,39.94a1,1,0,0,1-1-.89l-.28-2.48-2.47.28a1,1,0,0,1-1.1-.88,1,1,0,0,1,.88-1.1l3.46-.38a1,1,0,0,1,1.1.87l.39,3.47a1,1,0,0,1-.88,1.1Z" />
+          </svg>
+        </div>
+        <div class="col-12 pt-1 text-center text-extra-small">Wire</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #paymentOption>
+  <ng-container [ngSwitch]="option">
+    <ng-container *ngSwitchCase="'other'">
+      <div class="row mt-4 no-gutters">
+        <div class="col-4 mt-2 divider"></div>
+        <div class="col-4 text-center text-secondary h4">Send</div>
+        <div class="col-4 mt-2 divider"></div>
+      </div>
+      <form (ngSubmit)="onReceiver(receiveForm)" #receiveForm="ngForm">
+        <div class="row mt-3 justify-content-center">
+          <div class="form-group col-10 text-center">
+            <label for="receiver">Username/ Phone Number/Email</label>
+            <input type="text" id="receiver" name="receiver" class="form-control" [(ngModel)]="data.receiver" #receiver
+              required>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-sm-6 text-right">
+            <button type="button" class="btn btn-primary bg-secondary btn-modal" (click)="closeModal()">Cancel</button>
+          </div>
+          <div class="col-sm-6 text-left">
+            <button type="submit" class="btn btn-primary btn-modal" [style.background-color]="symbol.color" [disabled]="!receiveForm.valid">Next</button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <div class="row mt-4 mb-4 no-gutters">
+        <div class="col-4 mt-2 divider"></div>
+        <div class="col-4 text-center text-secondary h4">Select your bank</div>
+        <div class="col-4 mt-2 divider"></div>
+      </div>
+      <ng-container *ngFor="let account of accounts">
+        <div class="row mb-1 justify-content-center">
+          <div class="col-10">
+            <div class="card font-weight-bold text-medium" [ngClass]="isSelectedBank(account)" (click)="onAccount(account)"
+              [style.cursor]="'pointer'">
+              <div class="row">
+                <div class="col-12 text-center text-sm-left">
+                  {{account.field.bankName}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-left">&bull;&bull;&bull;&bull;&bull;&bull;&bull;{{account.field.accountNumber.slice(-4)}}</div>
+                <div class="col-12 col-sm-6 text-center text-sm-right">$ {{account.field.balance || '0.00'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="row mt-5">
+        <div class="col-sm-6 text-right">
+          <button type="button" class="btn btn-primary bg-secondary btn-modal" (click)="closeModal()">Cancel</button>
+        </div>
+        <div class="col-sm-6 text-left">
+          <button type="button" class="btn btn-primary btn-modal" [style.background-color]="symbol.color" [disabled]="!selectedAccount"
+            (click)="onBankSelect()">Next</button>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <div>
+    <svg class="header-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.4 106.37">
+      <circle [style.fill]="symbol.color" cx="54.02" cy="52.41" r="49.26" />
+      <path fill="#fff" d="M70.13,51.72a.79.79,0,0,0,.42-.12l14.51-9a.78.78,0,0,0,.38-.68.8.8,0,0,0-.38-.68L70.55,32.31a.8.8,0,0,0-1.22.68v4.06h-3a.8.8,0,1,0,0,1.6h3.78a.8.8,0,0,0,.8-.8V34.42l12.19,7.49L70.93,49.48V46a.8.8,0,0,0-.8-.8H66.42a.8.8,0,0,0,0,1.6h2.91v4.16a.82.82,0,0,0,.8.8Z" />
+      <path fill="#fff" d="M54.81,65.18H52.88A2.91,2.91,0,0,1,50,62.27a.6.6,0,0,1,.6-.6.6.6,0,0,1,.6.6,1.7,1.7,0,0,0,1.7,1.7h1.93a1.7,1.7,0,0,0,0-3.4H52.88a2.9,2.9,0,0,1,0-5.8h1.93a2.9,2.9,0,0,1,2.9,2.9.6.6,0,0,1-1.2,0,1.7,1.7,0,0,0-1.7-1.7H52.88a1.7,1.7,0,0,0,0,3.4h1.93a2.91,2.91,0,0,1,0,5.81Z" />
+      <path fill="#fff" d="M53.84,56a.6.6,0,0,1-.6-.6V53.24a.6.6,0,0,1,.6-.6.6.6,0,0,1,.6.6v2.13A.6.6,0,0,1,53.84,56Z" />
+      <path fill="#fff" d="M53.84,67.3a.6.6,0,0,1-.6-.6V64.57a.6.6,0,0,1,.6-.6.6.6,0,0,1,.6.6V66.7A.6.6,0,0,1,53.84,67.3Z" />
+      <path fill="#fff" d="M59.92,43a.56.56,0,0,1-.3-.08.6.6,0,0,1-.22-.82A54.57,54.57,0,0,0,63,34.75a11.2,11.2,0,0,0-1.47.19,16.43,16.43,0,0,1-2.84.32c-1.81,0-4-1.7-4.88-2.48-.89.78-3.06,2.48-4.88,2.48a16.42,16.42,0,0,1-2.83-.32,11.2,11.2,0,0,0-1.47-.19,53.37,53.37,0,0,0,3.63,7.38.6.6,0,0,1-.23.82.6.6,0,0,1-.82-.23c-4.67-8.28-4-8.69-3.46-9a4.1,4.1,0,0,1,2.55,0,15.67,15.67,0,0,0,2.63.3c1.51,0,3.74-1.82,4.46-2.52a.6.6,0,0,1,.84,0c.73.7,3,2.52,4.46,2.52a15.55,15.55,0,0,0,2.63-.3,4.14,4.14,0,0,1,2.56,0c.5.29,1.2.7-3.47,9A.59.59,0,0,1,59.92,43Z" />
+      <path fill="#fff" d="M59.92,46.52H47.77a.6.6,0,0,1-.61-.6V42.83a.6.6,0,0,1,.61-.6H59.92a.6.6,0,0,1,.6.6v3.09A.6.6,0,0,1,59.92,46.52ZM48.37,45.31h11V43.43h-11Z" />
+      <path fill="#fff" d="M39,56.88a.51.51,0,0,1-.17,0,.6.6,0,0,1-.41-.74c1.84-6.2,8.76-10.53,9.05-10.71a.6.6,0,1,1,.63,1c-.07,0-6.82,4.26-8.52,10A.61.61,0,0,1,39,56.88Z" />
+      <path fill="#fff" d="M54.09,73.71h-.5a32,32,0,0,1-5.32-.41.6.6,0,1,1,.21-1.19,29.36,29.36,0,0,0,5.11.4h.5c5.81,0,9.93-1.27,12.23-3.79,2.8-3,2.44-7.27,2.19-10l0-.35c-.56-6.69-8.79-11.84-8.88-11.89a.6.6,0,0,1-.19-.83.61.61,0,0,1,.83-.2c.36.23,8.83,5.53,9.44,12.82l0,.34c.25,2.82.66,7.53-2.5,11C64.67,72.31,60.26,73.71,54.09,73.71Z" />
+      <path fill="#fff" d="M45.14,73.71H34.4a.6.6,0,0,1-.61-.6V72A.61.61,0,0,1,35,72v.54h9.54V70h-7.9a.6.6,0,1,1,0-1.2h8.5a.6.6,0,0,1,.6.6v3.72A.6.6,0,0,1,45.14,73.71Z" />
+      <path fill="#fff" d="M46.71,70H36.64a.6.6,0,1,1,0-1.2h9.47V66.27H37.27a.6.6,0,1,1,0-1.2h9.44a.6.6,0,0,1,.61.6v3.72A.6.6,0,0,1,46.71,70Z" />
+      <path fill="#fff" d="M45.14,66.27H37.27a.6.6,0,1,1,0-1.2h7.27V62.56h-9a.61.61,0,0,1,0-1.21h9.6a.6.6,0,0,1,.6.6v3.72A.6.6,0,0,1,45.14,66.27Z" />
+      <path fill="#fff" d="M44.35,62.56H35.54a.61.61,0,0,1,0-1.21h8.21V58.83H34.21v1.68a.6.6,0,1,1-1.2,0V58.23a.6.6,0,0,1,.6-.6H44.35a.6.6,0,0,1,.6.6V62A.6.6,0,0,1,44.35,62.56Z" />
+      <path fill="#fff" d="M30.67,73.71a7.25,7.25,0,1,1,7.25-7.24A7.25,7.25,0,0,1,30.67,73.71Zm0-13.28a6,6,0,1,0,6,6A6,6,0,0,0,30.67,60.43Z" />
+      <path fill="#fff" d="M31.17,69.45h-1a1.79,1.79,0,0,1-1.79-1.79.61.61,0,0,1,1.21,0,.59.59,0,0,0,.58.59h1a.59.59,0,0,0,.59-.59.58.58,0,0,0-.59-.59h-1a1.8,1.8,0,0,1,0-3.59h1a1.81,1.81,0,0,1,1.8,1.8.61.61,0,0,1-1.21,0,.58.58,0,0,0-.59-.59h-1a.59.59,0,0,0,0,1.17h1a1.8,1.8,0,1,1,0,3.59Z" />
+      <path fill="#fff" d="M30.67,64.69a.6.6,0,0,1-.6-.61V63a.61.61,0,0,1,1.21,0v1.1A.61.61,0,0,1,30.67,64.69Z" />
+      <path fill="#fff" d="M30.67,70.55a.6.6,0,0,1-.6-.6v-1.1a.61.61,0,0,1,1.21,0V70A.6.6,0,0,1,30.67,70.55Z" />
+    </svg>
+  </div>
+</ng-template>
+
+<ng-template #amountScreen>
+  <div class="row mt-4 no-gutters">
+    <div class="col-4 mt-2 divider"></div>
+    <div class="col-4 text-center text-secondary h4">Destination
+      <span *ngIf="type === 'withdraw'">to</span>
+      <span *ngIf="type === 'deposit'">from</span>
+    </div>
+    <div class="col-4 mt-2 divider"></div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center h2">{{data.receiver}}
+      <span *ngIf="selectedAccount">account ***{{selectedAccount.field.accountNumber.slice(-4)}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center text-secondary h4">Enter Amount</div>
+  </div>
+  <div class="row" [style.visibility]="(data.amount && !isAmountValid()) ? 'visible' : 'hidden'">
+    <div class="col-12 text-small text-center text-danger">Not enough balance</div>
+  </div>
+  <div class="amount_box">
+    <form (ngSubmit)="onAmount(amountForm)" #amountForm="ngForm">
+      <div class="row justify-content-center no-gutters">
+        <div class="col-10">
+          <div class="card">
+            <div id="amount_row" class="position-relative">
+              <input type="text" id="amount" name="amount" [(ngModel)]="data.amount" class="w-100" type="text" mask="0*.0*"
+                [dropSpecialCharacters]="false" #amount autocomplete="off" [style.color]="symbol.color" [ngClass]="{'border-bottom border-danger': data.amount && !isAmountValid()}"
+                required>
+              <span [style.color]="symbol.color" class="position-absolute" id="symbol">$</span>
+              <span [style.color]="symbol.color" class="position-absolute" id="abr">{{symbol.symbol}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-sm-6 text-center text-sm-right">
+          <button type="button" class="btn btn-primary bg-secondary btn-modal" (click)="closeModal()">Cancel</button>
+        </div>
+        <div class="col-sm-6 text-center text-sm-left">
+          <button type="submit" class="btn btn-primary btn-modal" [style.background-color]="symbol.color" [disabled]="!isAmountValid()">Next</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div>
+    <svg class="header-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.4 106.37">
+      <circle [style.fill]="symbol.color" cx="56.5" cy="53.41" r="49.26" />
+      <path fill="#fff" d="M57.76,67.76H55.24A3.8,3.8,0,0,1,51.45,64a.79.79,0,0,1,.79-.78A.78.78,0,0,1,53,64a2.22,2.22,0,0,0,2.22,2.22h2.52a2.22,2.22,0,1,0,0-4.43H55.24a3.8,3.8,0,0,1,0-7.59h2.52A3.79,3.79,0,0,1,61.55,58a.78.78,0,0,1-.78.79A.79.79,0,0,1,60,58a2.22,2.22,0,0,0-2.22-2.22H55.24a2.22,2.22,0,1,0,0,4.44h2.52a3.8,3.8,0,0,1,0,7.59Z" />
+      <path fill="#fff" d="M56.5,55.73a.78.78,0,0,1-.78-.78V52.17a.79.79,0,0,1,1.57,0V55A.78.78,0,0,1,56.5,55.73Z" />
+      <path fill="#fff" d="M56.5,70.53a.78.78,0,0,1-.78-.78V67a.79.79,0,1,1,1.57,0v2.78A.78.78,0,0,1,56.5,70.53Z" />
+      <path fill="#fff" d="M63.09,38.31a.78.78,0,0,1-.79-.78c0-.69.68-1.53,4.52-4.88.38-.32.76-.66.93-.82a1.25,1.25,0,0,0,0-.95c-.15-.23-.58-.35-1.19-.35-3,0-3.91-.13-4.82-1a4.54,4.54,0,0,0-3,.59,3.11,3.11,0,0,1-2.25.29,3.09,3.09,0,0,1-2.24-.29,4.56,4.56,0,0,0-3-.59c-.9.91-1.84,1-4.81,1-.61,0-1,.12-1.19.35a1.3,1.3,0,0,0,0,.95c.16.16.55.5.92.82C50,36,50.71,36.84,50.71,37.53a.79.79,0,0,1-.79.78.78.78,0,0,1-.77-.64,35,35,0,0,0-4-3.83c-1.14-1-1.32-1.16-1.35-1.42A2.77,2.77,0,0,1,43.92,30,2.75,2.75,0,0,1,46.43,29c3,0,3.31-.17,3.7-.57,1.11-1.1,3.79-.31,4.91.34a1.69,1.69,0,0,0,1.26.08.72.72,0,0,1,.41,0A1.66,1.66,0,0,0,58,28.72c1.13-.64,3.81-1.44,4.91-.34.4.4.7.57,3.71.57A2.75,2.75,0,0,1,69.09,30a2.77,2.77,0,0,1,.12,2.39c0,.26-.21.42-1.35,1.42a33.36,33.36,0,0,0-4,3.83A.79.79,0,0,1,63.09,38.31Z" />
+      <path fill="#fff" d="M62.12,43.89H50.89a3.58,3.58,0,0,1,0-7.15H62.12a3.58,3.58,0,0,1,0,7.15ZM50.89,38.31a2,2,0,0,0,0,4H62.12a2,2,0,1,0,0-4Z" />
+      <path fill="#fff" d="M56.5,79c-2.59,0-5.48-.7-9.66-2.35A7,7,0,0,0,42.37,76a8,8,0,0,1-2.92.06c-1.84-.29-2.5-1.18-2.72-1.88a3.63,3.63,0,0,1,1.2-3.5c.85-.85,1.31-6.47,1.68-11,.11-1.26.21-2.53.33-3.77.63-6.83,10.11-13.21,10.52-13.48a.78.78,0,1,1,.87,1.3c-.1.07-9.27,6.25-9.83,12.32-.11,1.24-.22,2.51-.32,3.76-.55,6.64-1,10.77-2.14,12a2.25,2.25,0,0,0-.82,1.91c.17.53,1,.73,1.47.81a6.58,6.58,0,0,0,2.43-.06,8.47,8.47,0,0,1,5.3.71c4,1.57,6.7,2.24,9.08,2.24s5.1-.67,9.09-2.24a8.47,8.47,0,0,1,5.3-.71,6.53,6.53,0,0,0,2.42.06c.48-.08,1.3-.28,1.47-.81A2.21,2.21,0,0,0,74,71.8c-1.2-1.2-1.59-5.33-2.14-12-.1-1.25-.21-2.52-.32-3.76-.57-6.07-9.74-12.25-9.83-12.32a.79.79,0,0,1-.22-1.09.78.78,0,0,1,1.09-.21c.4.27,9.89,6.65,10.52,13.48.12,1.24.22,2.51.32,3.77.38,4.52.84,10.14,1.69,11a3.68,3.68,0,0,1,1.2,3.5c-.23.7-.88,1.59-2.72,1.88A8,8,0,0,1,70.64,76a7,7,0,0,0-4.47.62C62,78.28,59.09,79,56.5,79Z" />
+    </svg>
+  </div>
+</ng-template>
+
+<ng-template #confirmation>
+  <div class="row mt-4">
+    <div class="col-12 text-center text-small text-secondary">Are you sure want to</div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-12 h2 text-center">Send ${{data.amount}}</div>
+  </div>
+  <div class="row mt-4 text-center">
+    <div class="col-sm-6 text-secondary">Sending</div>
+    <div class="col-sm-6">${{data.amount}}</div>
+  </div>
+  <div class="row mt-1 text-center">
+    <div class="col-sm-6 text-secondary">
+      <ng-container *ngIf="type === 'withdraw'">Destination</ng-container>
+      <ng-container *ngIf="type === 'deposit'">From</ng-container>
+    </div>
+    <div class="col-sm-6">{{data.receiver}}</div>
+  </div>
+  <div class="row mt-5 mb-3">
+    <div class="col-sm-6 text-right">
+      <button type="button" class="btn btn-primary bg-secondary btn-modal" (click)="closeModal()">Cancel</button>
+    </div>
+    <div class="col-sm-6 text-left">
+      <button type="button" class="btn btn-primary btn-modal" [style.background-color]="symbol.color" (click)="onConfirm()">
+        <span *ngIf="isSubmitted">
+          <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+        </span>
+        <span *ngIf="!isSubmitted">Confirm</span>
+      </button>
+    </div>
+  </div>
+  <div>
+    <img class="header-img" [src]="utilService.getColorIcon(symbol)">
+  </div>
+</ng-template>
+
+<ng-template #success>
+  <div class="row mt-5">
+    <div class="col-12 text-center h4">Success</div>
+  </div>
+  <div class="row mt-2" *ngIf="!instructions">
+    <div class="col-12 text-center">Transaction successfuly sent</div>
+  </div>
+  <div *ngIf="instructions" class="class=mt-2" [innerHtml]="instructions"></div>
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-primary btn-modal" [style.background-color]="symbol.color" (click)="onComplete()">Next</button>
+    </div>
+  </div>
+  <div>
+    <svg class="header-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110.4 106.37">
+      <circle [style.fill]="symbol.color" cx="55.51" cy="52.47" r="49.26" />
+      <path fill="#fff" d="M78.25,38.28,47.71,68.81a1.58,1.58,0,0,1-2.23-2.24L76,36a1.58,1.58,0,0,1,2.24,0A1.6,1.6,0,0,1,78.25,38.28Z" />
+      <path fill="#fff" d="M34.85,53.71,48,66.81a1.63,1.63,0,0,1-2.24,2.24L32.61,55.94a1.62,1.62,0,0,1,2.24-2.23Z" />
+    </svg>
+  </div>
+</ng-template>
+
+<ng-template #error>
+  <div class="row mt-5">
+    <div class="col-12 text-center h4">Error</div>
+  </div>
+  <div class="row mt-2" *ngIf="!instructions">
+    <div class="col-12 text-center">{{response.message}}</div>
+  </div>
+    <div *ngIf="instructions" class="class=mt-2" [innerHtml]="instructions"></div>
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-primary btn-modal" [style.background-color]="symbol.color" (click)="onComplete()">Next</button>
+    </div>
+  </div>
+  <div>
+    <svg class="header-img" version="1.1" viewBox="0 0 110.4 106.37">
+      <circle [style.fill]="symbol.color" cx="55.51" cy="52.47" r="49.26" />
+      <path d="m72.391 36.477-30.54 30.53a1.5804 1.5804 0 0 1 -2.23 -2.24l30.52-30.57a1.58 1.58 0 0 1 2.24 0 1.6 1.6 0 0 1 0.01 2.28z"
+        fill="#fff" />
+      <path d="m42.218 34.55 30.53 30.54a1.5804 1.5804 0 0 1 -2.24 2.23l-30.57-30.52a1.58 1.58 0 0 1 0 -2.24 1.6 1.6 0 0 1 2.28 -0.01z"
+        fill="#fff" />
+    </svg>
+  </div>
+</ng-template>
+
+<ng-template #footer>
+  <div class="modal-footer bg-footer">
+    <div class="container text-white text-small">
+      <div class="row no-gutters">
+        <div class="col-sm-6 text-center text-sm-left">
+          {{symbol.symbol}} Fee
+        </div>
+        <div class="col-sm-6 text-center text-sm-right">
+          {{symbol.feeFormatted}}
+        </div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-sm-6 text-center text-sm-left">
+          Available balance
+        </div>
+        <div class="col-sm-6 text-center text-sm-right">
+          $&nbsp;{{getAvailableBalance() | number :'1.0-10' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,42 @@
+<ng-template class="modal" #template>
+  <div class="row modal-body center">
+    <div class="bg-modal-send" #body>
+      <div id="receive-modal-body">
+        <img class="modalImg" [src]="utilService.getColorIcon(selectedWalletData.symbolData)">
+        <button type="button" class="send-modal close" aria-label="Send" (click)="modalRef.hide()">
+          <i class="fa fa-times-circle text-white" aria-hidden="true"></i>
+        </button>
+        <div>
+          <ngx-qrcode [qrc-value]="address.address" qrc-class="qr" qrc-errorCorrectionLevel="L">
+          </ngx-qrcode>
+        </div>
+        <div>
+          <span [style.color]="selectedSymbolData.color" class="address-label">Your&nbsp;<span class="symbol-name">{{selectedSymbolData.title}}</span>&nbsp;address</span>
+        </div>
+        <div class="address">
+          {{address.address}}
+        </div>
+        <div>
+          <span *ngIf="address.extra?.fieldValue" [style.color]="selectedSymbolData.color" class="address-label">{{address.extra?.fieldName}}</span>
+        </div>
+        <div class="address" *ngIf="address.extra?.fieldValue">
+          <div>{{address.extra?.fieldValue}}</div>
+        </div>
+      </div>
+      <div class="share">
+        <button class="btn share-btn " tooltip="Copy to clipboard" ngxClipboard [cbContent]="address.address" (click)="copy()">
+          <img src="assets/images/copy.png">
+        </button>
+        <button class="btn share-btn " tooltip="Print" (click)="print()">
+          <img src="assets/images/printer.png">
+        </button>
+        <a class="share-btn" tooltip="Send email" [href]="getMailBody()">
+          <img src="assets/images/mail.png">
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer " *ngIf="address && address.extra && address.extra.fieldMessage">
+    <p>{{address.extra.fieldMessage}}</p>
+  </div>
+</ng-template>

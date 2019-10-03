@@ -1,0 +1,257 @@
+
+.topnav {
+  height: 50px;
+  background-color: #ffffff;
+  box-shadow: 0 1.5px 3px 0 rgba(0, 0, 0, 0.16);
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 999;
+}
+
+.topnav .logo {
+  color: #0033a7;
+  font-weight: bold;
+  font-size: 31px;
+  position: relative;
+  top: 4px;
+  left: 31px;
+}
+
+.profile-page {
+  background-color: #E8E8E8;
+  min-height: 100vh;
+  background-image: url('/assets/images/profile-background.png');
+  background-repeat: no-repeat;
+  background-size: 100% 60%;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-bottom: 100px;
+}
+
+.body {
+  padding-top: 100px;
+  /*padding-left: 71px;*/
+}
+
+.non-edit-message {
+  font-size: 18px;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+
+.user-image {
+  background-color: white;
+  border-radius: 50%;
+  width: 94px;
+  height: 94px;
+  text-align: center;
+}
+
+.user-image img {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  left: 1px;
+  top: 12px;
+}
+
+.add-image {
+  cursor: pointer;
+  position: relative;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  bottom: -17px;
+  left: 30px;
+  color: white;
+  background-color: rgb(149, 192, 18);
+  box-shadow: 3.5px 6.062px 10px 0 rgba(1, 2, 2, 0.14);
+  font-size: 19px;
+  font-weight: bolder;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+
+.name {
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.user-info {
+  padding-top: 24px;
+  text-align: left !important;
+
+  margin-bottom: 30px;
+}
+
+
+.user-info hr {
+  width: 100%;
+  margin: 0;
+  border-color: #76B3FC;
+}
+
+.splitter {
+  max-width: 240px;
+  margin: 5px 0;
+}
+
+.email {
+  font-size: 17px;
+}
+
+.info-value {
+  font-weight: bold;
+  font-size: 13px;
+
+  padding: 0 0 10px 0;
+}
+
+.info-label {
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: lighter;
+  padding: 10px 0 0 0;
+
+  border-radius: 0;
+
+}
+
+
+.noLabel {
+  padding-top: 31px;
+}
+
+.email-old input {
+  width: 86%;
+  border-right: none;
+}
+
+
+.eye-addon {
+  min-width: 50px;
+  background-color: #e9ecef;
+  border-color: #c1c1c1 !important;
+  border: 1px solid;
+  border-left: 0px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.eye {
+  width: 100%;
+  cursor: pointer;
+}
+
+
+.change-password, .personal, .phone-numbers {
+  margin-top: 30px;
+}
+
+.change-password form {
+  margin-top: -40px;
+}
+
+.intl-tel-input {
+  display: inline !important;
+  width: 75%;
+}
+
+.phone-numbers img {
+  max-width: 75%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+.verified {
+  color: #96BE2B;
+}
+
+.unverified {
+  color: #D39A63;
+}
+
+.verified, .unverified {
+  text-transform: uppercase;
+  font-size: 16px;
+  border-top: 1px solid #c1c1c1;
+  border-right: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
+  border-left-style: none;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  padding: 5px 5px;
+  margin: 0;
+  align-items: center;
+}
+
+.verified i, .unverified i {
+  margin-right: 10px;
+}
+
+.phone-txt input {
+  margin-right: 0;
+  border-right: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.phone-numbers button.a2f {
+  width: 100%;
+  margin: auto;
+}
+
+.phone-numbers button div {
+  font-size: 15px;
+  font-weight: lighter;
+  color: #B8CFF1;
+  padding-top: 0;
+  margin-top: -6px;
+}
+
+.a2f-section {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.message1 {
+  font-size: 15px !important;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  line-height: 1.2;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.message2 {
+  font-size: 11px !important;
+  color: rgb(128, 128, 128);
+  line-height: 1.2;
+  text-align: center;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ng-invalid.ng-touched {
+  outline-color: #7C171D;
+  border-color: #7C171D !important;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.personal img {
+  width: 42px;
+}
+

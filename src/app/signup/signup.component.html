@@ -1,0 +1,235 @@
+<div class="row login-container">
+  <div class="col-md-6 col-12 left-container d-flex flex-column justify-content-between px-4">
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-4">
+      <img src="assets/images/blue-logo.png" height="35">
+      <button *ngIf="step === 1 && screenStep === 2" class="btn btn-primary btn-header btn-sm" (click)="onSignupPage()">Register</button>
+      <button *ngIf="(step === 1 && screenStep !== 2) || step === 2 || step === 3" class="btn btn-primary btn-header btn-sm" (click)="onLoginPage()">Log In</button>
+    </div>
+
+    <div class="px-0 px-md-5 mb-5">
+      <div *ngIf="step === 1">
+        <h1 *ngIf="screenStep === 1" class="font-weight-bold mb-5">Register<br>with Spend</h1>
+        <h1 *ngIf="screenStep === 2" class="font-weight-bold mb-5">Log in<br>to Spend</h1>
+        <h1 *ngIf="screenStep === 3" class="font-weight-bold mb-5">Forgot<br>Password</h1>
+        <h1 *ngIf="screenStep === 4" class="font-weight-bold mb-5">Change<br>Password</h1>
+
+        <form *ngIf="screenStep === 1" (ngSubmit)="submit(signupForm)" #signupForm="ngForm" class="pr-0 pr-md-5">
+          <div class="form-group position-relative">
+            <ng-select [items]="countries" placeholder="Country" class="country-drop-down" [markFirst]="true" bindLabel="name" bindValue="name" (change)="onCountryChange($event)" [clearable]="false">
+              <ng-template ng-label-tmp ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                <img width="20" height="20" class="img-fluid img-responsive" [src]="item.image" /> {{item.name}}
+              </ng-template>
+            </ng-select>
+            <span class="fa fa-check-square input-icon icon-success position-absolute" style="bottom: 25%;" [hidden]="!selectedCountry"></span>
+          </div>
+          <div class="form-group position-relative mat-div" [class.is-completed]="completeItems[0]" [class.is-focus]="focusItems[0]">
+            <label for="username" class="mat-label">Username</label>
+            <input name="username" (focus)="setFocus(0)" (focusout)="removeFocus(0, signup.username)" class="form-control pr-4 mat-input" type="text" [(ngModel)]="signup.username" #username="ngModel" required/>
+            <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="username.invalid || (username.pristine && !signupForm.submitted)"></span>
+            <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="username.valid || (username.pristine && !signupForm.submitted)"></span>
+          </div>
+          <div class="form-group position-relative mat-div" [class.is-completed]="completeItems[1]" [class.is-focus]="focusItems[1]">
+            <label for="email" class="mat-label">Email</label>
+            <input name="email" (focus)="setFocus(1)" (focusout)="removeFocus(1, signup.email)" class="form-control mat-input" type="email" [(ngModel)]="signup.email" #email="ngModel" required email />
+            <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="email.invalid || (email.pristine && !signupForm.submitted)"></span>
+            <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="email.valid || (email.pristine && !signupForm.submitted)"></span>
+          </div>
+          <div class="form-group position-relative mat-div" [class.is-completed]="completeItems[2]" [class.is-focus]="focusItems[2]">
+            <label for="password" class="mat-label">Password</label>
+            <input type="{{sPasswordSignup ? 'text' : 'password'}}" (focus)="setFocus(2)" (focusout)="removeFocus(2, signup.password)" name="password" class="form-control pr-4 mat-input" [(ngModel)]="signup.password" #password="ngModel" required/>
+          </div>
+          <div class="form-group position-relative mat-div" [class.is-completed]="completeItems[3]" [class.is-focus]="focusItems[3]">
+            <label for="passwordConfirmation" class="mat-label">Password Confirmation</label>
+            <input type="{{sCnPasswordSignup ? 'text' : 'password'}}" (focus)="setFocus(3)" (focusout)="removeFocus(3, signup.passwordConfirmation)" name="passwordConfirmation" class="form-control pr-4 mat-input" [(ngModel)]="signup.passwordConfirmation" #passwordConfirmation="ngModel" required/>
+          </div>
+          <div class="form-group my-4">
+            <span class="text-md">Invited by a friend to Spend? <a class="text-primary text-md">Referral Code</a></span>
+          </div>
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="terms" name="terms" [(ngModel)]="signup.terms" #terms="ngModel" required>
+              <br>
+              <label class="custom-control-label mt-2" for="terms">
+                <span class="text-black text-sm">By clicking 'Create Account' you agree to our <a class="text-primary" (click)="onShowLegal(false)">Terms & Conditions</a> and <a class="text-primary" (click)="onShowLegal(true)">Privacy policy.</a></span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <p class="text-sm">You consent to email updates regarding Spend's products and services.<br>
+              You can unsubscribe from our marketing emails at any time by clicking<br>
+              the 'unsubscribe' link at the bottom of any email we send you.</p>
+          </div>
+          <div class="form-group mt-5">
+            <button type="submit" class="btn btn-primary btn-submit btn-sm" [disabled]="isSubmitted">
+              <span *ngIf="isSubmitted">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+              </span>
+              <span *ngIf="!isSubmitted">CREATE ACCOUNT</span>
+            </button>
+          </div>
+        </form>
+  
+        <form *ngIf="screenStep === 2" (ngSubmit)="onSubmit(signinForm)" #signinForm="ngForm" class="pr-0 pr-md-5">
+          <div class="form-group position-relative mat-div" [class.is-completed]="completeItems[4]" [class.is-focus]="focusItems[4]">
+            <label for="username" class="mat-label">Username</label>
+            <input type="text" name="username" (click)="setFocus(4)" (focusout)="removeFocus(4, signin.username)" class="form-control pr-4 mat-input" [(ngModel)]="signin.username" #username="ngModel" required/>
+            <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="username.invalid || (username.pristine && !signinForm.submitted)"></span>
+            <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="username.valid || (username.pristine && !signinForm.submitted)"></span>
+          </div>
+          <div class="form-group mb-0 mat-div" [class.is-completed]="completeItems[5]" [class.is-focus]="focusItems[5]">
+            <label for="password" class="mat-label">Password</label>
+            <input type="{{sPasswordSignin?'text':'password'}}" (click)="setFocus(5)" (focusout)="removeFocus(5, signin.password)" name="password" class="form-control mat-input" [(ngModel)]="signin.password" #password="ngModel" required/>
+          </div>
+          <div class="form-group text-right">
+            <a class="btn btn-link text-black text-md" (click)="onForgotPasswordPage()">Forgot password?</a>
+          </div>
+          <div class="form-group mt-5">
+            <button type="submit" class="btn btn-primary btn-sm btn-submit" [disabled]="isSubmitted">
+              <span *ngIf="isSubmitted">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+              </span>
+              <span *ngIf="!isSubmitted">LOG IN</span>
+            </button>
+          </div>
+        </form>
+  
+        <form *ngIf="screenStep === 3" class="pr-0 pr-md-5" (ngSubmit)="onForgotPassword(forgotPasswordForm)" #forgotPasswordForm="ngForm">
+          <div class="form-group mat-div" [class.is-completed]="completeItems[6]" [class.is-focus]="focusItems[6]">
+            <label for="forgotPasswordUsername" class="text-md mat-label">Enter your username</label>
+            <input name="forgotPasswordUsername" (focus)="setFocus(6)" (focusout)="removeFocus(6, forgotPasswordUsername)" class="form-control pr-4 mat-input" type="text" [(ngModel)]="forgotPasswordUsername" #username="ngModel" required/>
+            <span class="fa fa-check-square input-icon icon-success position-absolute" [hidden]="username.invalid || (username.pristine && !forgotPasswordForm.submitted)"></span>
+            <span class="fa fa-window-close input-icon icon-error position-absolute" [hidden]="username.valid || (username.pristine && !forgotPasswordForm.submitted)"></span>
+          </div>
+          <div class="form-group mt-5 pt-5">
+            <button type="submit" class="btn btn-primary btn-submit btn-sm" [disabled]="isSubmitted">
+              <span *ngIf="isSubmitted">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+              </span>
+              <span *ngIf="!isSubmitted">SEND</span>
+            </button>
+          </div>
+        </form>
+
+        <form *ngIf="screenStep === 4" class="pr-0 pr-md-5" (ngSubmit)="onCnForgotPassword(cnForgotPasswordForm)" #cnForgotPasswordForm="ngForm">
+          <div class="form-group">
+            <input name="code" placeholder="Verification Code" class="form-control" type="text"  mask="9-9-9-9-9-9" [(ngModel)]="cnForgotPassword.code" #code="ngModel" required>
+          </div>
+          <div class="form-group">
+            <input name="password" class="form-control" placeholder="New Password" type="password" [(ngModel)]="cnForgotPassword.password" #password="ngModel" required>
+          </div>
+          <div class="form-group mt-5 pt-5">
+            <button type="submit" class="btn btn-primary btn-sm btn-submit" [disabled]="isSubmitted">
+              <span *ngIf="isSubmitted">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+              </span>
+              <span *ngIf="!isSubmitted">SUBMIT</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="step === 2" class="text-center">
+        <h1 class="font-weight-bold mb-5">Legal</h1>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item col-sm-12 col-lg-6 pr-0 pl-0 mb-0">
+            <a class="nav-link text-uppercase font-weight-bold" [ngClass]="{'active': !displayPP}" (click)="toggleLegalTab(false)" href="#userAgreement" data-toggle="tab">User Agreement</a>
+          </li>
+          <li class="nav-item col-sm-12 col-lg-6 pr-0 pl-0 mb-0">
+            <a class="nav-link text-uppercase font-weight-bold" [ngClass]="{'active': displayPP}"  (click)="toggleLegalTab(true)" href="#privacyPolicy" data-toggle="tab">Privacy Policy</a>
+          </li>
+        </ul>
+        <div class="tab-content pt-1">
+          <div class="tab-pane" [ngClass]="{'active': !displayPP}" id="userAgreement">
+            <iframe [src]="termsURL" frameborder="0" perfectScrollbar="1" width="100%"></iframe>
+          </div>
+          <div class="tab-pane" [ngClass]="{'active': displayPP}" id="privacyPolicy">
+            <iframe [src]="policyURL" frameborder="0" perfectScrollbar="1" width="100%"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="step === 3">
+        <h1 class="font-weight-bold">Check<br>your email</h1>
+        <div class="p-5">
+          <img src="assets/images/email.png" width="60">
+        </div>
+        <p class="text-black text-md">To continue creating your account, check the email we sent to<br>
+            {{email}}</p>
+        <p class="text-black text-md">Haven't received the email yet? Check your Spam folder or </p>
+        <a class="text-primary text-md">resend email</a>.
+      </div>
+
+      <div *ngIf="step === 4">
+        <h1 class="font-weight-bold mb-5">Add a<br>Phone number</h1>
+        <form class="form-group">
+          <div class="form-group text-left position-relative">
+            <span class="position-absolute dial-code text-muted">{{selectedCountry && selectedCountry.dial_code}}</span>
+            <input type="text" placeholder="Your phone number" class="form-control phone-number pt-1 font-weight-bold" name="phoneNumber" (keyup)="onPhoneChange($event)" [value]="phoneNumber" (input)="phoneNumber=$event.target.value" />
+          </div>
+          <div class="form-group my-5">
+            <p class="text-md">This will secure your account by texting a short confirmation code<br>
+            to your phone when logging in.</p>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-sm btn-submit" (click)="createCode()" [disabled]="!createCodeBtn || isSubmitted">
+              <span *ngIf="isSubmitted">
+                <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+              </span>
+              <span *ngIf="!isSubmitted">SEND CODE</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="step === 5">
+        <h1 class="font-weight-bold mb-4">Verify your<br>phone number</h1>
+        <p class="text-black text-md mb-4">Please enter six digits code we just sent to your number</p>
+        <h5 class="mb-4 font-weight-bold">{{verificationNumber}}</h5>
+        <div class="phone-code-field">
+          <input type="text" name="0" mask="9" autocomplete="off" (keyup)="onCodeChange($event)"/>
+          <input type="text" name="1" mask="9" autocomplete="off" (keyup)="onCodeChange($event)"/>
+          <input type="text" name="2" mask="9" autocomplete="off" (keyup)="onCodeChange($event)"/>
+          <input type="text" name="3" mask="9" autocomplete="off" (keyup)="onCodeChange($event)"/>
+          <input type="text" name="4" mask="9" autocomplete="off" (keyup)="onCodeChange($event)"/>
+          <input type="text" name="5" mask="9" autocomplete="off" (keyup)="onCodeChange($event)"/>
+        </div>
+        <div class="form-group mt-4">
+          <span class="text-black text-md">Didn’t receive the SMS? <a class="text-primary" (click)="resendCode()">Resend SMS</a></span>
+          <br>
+          <a class="text-primary text-md" (click)="useAnotherPhone()">Use another phone number</a>
+        </div>
+        <div class="form-group mt-5">
+          <button type="button" class="btn btn-primary btn-sm btn-submit" (click)="submitCode()" [disabled]="!sendCode">
+            <span *ngIf="isSubmitted">
+              <i class="fa fa-spinner fa-spin fa-fw"></i> Processing...
+            </span>
+            <span *ngIf="!isSubmitted">SUBMIT</span>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="step === 6" class="text-center">
+        <img class="img-responsive img-fluid" src="/assets/images/verified.png" width="70" />
+        <h1 class="font-weight-bold my-5">Congrats!</h1>
+        <p>Your phone number has been verified!</p>
+        <div class="mt-5">
+          <button type="button" class="btn btn-primary btn-sm btn-submit" (click)="onProceed()">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-end justify-content-between mb-3">
+      <div class="footer">
+        <span class="text-secondary">@ 2018 Spend</span>
+        <a class="text-secondary ml-3" (click)="onShowLegal(false)">Terms & Conditions</a>
+        <a class="text-secondary ml-3" (click)="onShowLegal(true)">Privacy policy</a>
+      </div>
+      <img src="assets/images/pci.png" width="45">
+    </div>
+  </div>
+
+  <div class="col-md-6 col-12 d-none d-md-flex flex-column align-items-center justify-content-center right-container px-2 px-lg-5">
+    <h5 class="text-center my-5">Buy, Store, Spend, Track, Exchange<br>& More with our Secure<br>Multi-Currency Digital Wallet</h5>
+    <img src="assets/images/login-bg.png" class="w-100">
+  </div>
+</div>
